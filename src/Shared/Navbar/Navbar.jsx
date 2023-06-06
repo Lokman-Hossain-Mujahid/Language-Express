@@ -30,7 +30,7 @@ const Navbar = () => {
                         </div>
                         <div className='flex items-center'>
                             <div>
-                                <img className='w-20 pt-3' src="/public/images/logo.png" alt="" />
+                                <img className='w-20 pt-3' src="/images/logo.png" alt="" />
                             </div>
                             <div>
                                 <Link to="/" className="normal-case md:text-3xl font-semibold italic text-white">LanguageExpress</Link>
