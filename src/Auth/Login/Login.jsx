@@ -48,24 +48,20 @@ const Login = () => {
         const user = result.user;
         console.log(user);
 
-        const userData = { name:user.displayName, email: user.email, photoURL:user.photoURL}
+        const userData = { name: user.displayName, email: user.email, photoURL: user.photoURL }
 
-            fetch('http://localhost:5000/users',{
-                method: 'POST',
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify(userData)
-            })
-            .then(res => res.json())
-            .then(data => {
-              if(data.insertedId){
-
-
-                navigate(from, { replace: true });
-              }
-            })
+        fetch('http://localhost:5000/users', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(userData)
+        })
+          .then(res => res.json())
+          .then(() => {
+            navigate(from, { replace: true });
+          })
 
         setSuccess(null);
-        
+
       })
       .catch(error => {
         console.log(error);
