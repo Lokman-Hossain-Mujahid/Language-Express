@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 import { useForm } from 'react-hook-form';
-import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
+import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 
 
 const Login = () => {
@@ -86,23 +86,21 @@ const Login = () => {
                 />
                 {errors.email && <p className="text-red-500">Email is required</p>}
               </div>
-              <div className="form-control">
+              <div className="form-control relative">
                 <label htmlFor="password" className="label">
                   Your password
                 </label>
-                <div className="flex items-center">
-                  <input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter your password"
-                    required={true}
-                    className="input input-bordered w-full md:w-[15vw]"
-                    {...register('password', { required: true })}
-                  />
-                  <span onClick={togglePasswordVisibility} className="password-toggle-icon pl-2">
-                    {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
-                  </span>
-                </div>
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter your password"
+                  required={true}
+                  className="input input-bordered"
+                  {...register('password', { required: true })}
+                />
+                <span onClick={togglePasswordVisibility} className="password-toggle-icon absolute right-0 bottom-[16%] pr-2">
+                  {showPassword ? <RiEyeOffLine /> : <RiEyeLine />}
+                </span>
                 {errors.password && <p className="text-red-500">Password is required</p>}
               </div>
               <button type="submit" className="btn mt-4 bg-white text-black">
