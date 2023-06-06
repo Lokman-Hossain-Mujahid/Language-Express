@@ -2,15 +2,22 @@ import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 import { useForm } from 'react-hook-form';
+import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
+
 
 const Login = () => {
   const { googleSignIn, signIn, success, setSuccess } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const { handleSubmit, register, formState: { errors } } = useForm();
-  
+
   const from = location.state?.from?.pathname || '/';
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onSubmit = data => {
     const { email, password } = data;
@@ -83,14 +90,19 @@ const Login = () => {
                 <label htmlFor="password" className="label">
                   Your password
                 </label>
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  required={true}
-                  className="input input-bordered"
-                  {...register('password', { required: true })}
-                />
+                <div className="flex items-center">
+                  <input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Enter your password"
+                    required={true}
+                    className="input input-bordered w-full md:w-[15vw]"
+                    {...register('password', { required: true })}
+                  />
+                  <span onClick={togglePasswordVisibility} className="password-toggle-icon pl-2">
+                    {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+                  </span>
+                </div>
                 {errors.password && <p className="text-red-500">Password is required</p>}
               </div>
               <button type="submit" className="btn mt-4 bg-white text-black">
