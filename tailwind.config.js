@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        nunito: ['Nunito'],
+        bebas: ['Bebas Neue']
+      }
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
