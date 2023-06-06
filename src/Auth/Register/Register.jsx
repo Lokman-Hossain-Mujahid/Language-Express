@@ -18,11 +18,18 @@ const Register = () => {
 
     const [error, setError] = useState('');
 
+    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^\w\s]).{6,}$/;
+
     const onSubmit = async (data) => {
         const { name, email, password, confirmPassword, photoURL, gender, phoneNumber, address } = data;
 
         if (password !== confirmPassword) {
             setError('*Passwords do not match');
+            return;
+        }
+
+        if (!passwordRegex.test(password)) {
+            setError('*Password requirements not met');
             return;
         }
 
@@ -47,17 +54,17 @@ const Register = () => {
     };
 
     return (
-        <div className="hero bg-orange-300 mx-auto ">
+        <div className="hero bg-orange-300 mx-auto">
             <div>
                 <div className="hero-content flex-col lg:flex">
                     <div className="text-center">
                         <h1 className="text-5xl font-bold font-nunito">Register now!</h1>
                         <p className="py-6 text-xl font-nunito">
-                            And be a part of wonderful action figure kingdom{' '}
-                            <span className="font-semibold italic">"ToyVerse"</span>
+                            To enroll in various language courses in {' '}
+                            <span className="font-semibold italic">"Language Express"</span>
                         </p>
                     </div>
-
+                    
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 p-10">
                         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                             <div className="form-control">
@@ -91,7 +98,7 @@ const Register = () => {
                                     Your password
                                 </label>
                                 <input
-                                    {...register('password', { required: true, minLength: 6 })}
+                                    {...register('password', { required: true })}
                                     id="password"
                                     type="password"
                                     placeholder="Enter your password"
@@ -104,7 +111,7 @@ const Register = () => {
                                     Confirm password
                                 </label>
                                 <input
-                                    {...register('confirmPassword', { required: true, validate: (value) => value === watch('password') })}
+                                    {...register('confirmPassword', { required: true })}
                                     id="confirmPassword"
                                     type="password"
                                     placeholder="Confirm your password"
@@ -116,15 +123,14 @@ const Register = () => {
                                 )}
                             </div>
                             <div className="form-control">
-                                <label htmlFor="photoUrl" className="label">
+                                <label htmlFor="photoURL" className="label">
                                     Photo URL
                                 </label>
                                 <input
                                     {...register('photoURL')}
-                                    id="photoUrl"
+                                    id="photoURL"
                                     type="url"
-                                    placeholder="Enter your photo"
-                                    required={false}
+                                    placeholder="Enter your photo URL"
                                     className="input input-bordered"
                                 />
                             </div>
@@ -153,7 +159,6 @@ const Register = () => {
                                     id="phoneNumber"
                                     type="tel"
                                     placeholder="Enter your phone number"
-                                    required={false}
                                     className="input input-bordered"
                                 />
                             </div>
@@ -165,10 +170,10 @@ const Register = () => {
                                     {...register('address')}
                                     id="address"
                                     placeholder="Enter your address"
-                                    required={false}
                                     className="input input-bordered"
                                 ></textarea>
                             </div>
+                            <p className="text-red-500 mt-4">{error}</p>
                             <button type="submit" className="btn mt-4 bg-white text-black">
                                 Submit
                             </button>
@@ -176,11 +181,14 @@ const Register = () => {
                         <div className="mt-6">
                             <h2>
                                 <small>
-                                    Already registered? <Link className="text-red-600 underline" to="/login">Login</Link>
+                                    Already registered?{' '}
+                                    <Link className="text-red-600 underline" to="/login">
+                                        Login
+                                    </Link>
                                 </small>
                             </h2>
                         </div>
-                        <p className="text-red-50 mt-6">{error}</p>
+                        
                     </div>
                 </div>
             </div>
