@@ -45,7 +45,7 @@ const Navbar = () => {
     
 
                             {user && <div className='flex-col mx-auto md:mx-0 md:flex'>
-                                <li><Link to="/addtoys">Dashboard</Link></li>
+                                <li><Link to="/dashboard">Dashboard</Link></li>
                             </div>}
 
                         </ul>

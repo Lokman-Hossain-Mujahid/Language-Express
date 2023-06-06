@@ -47,8 +47,25 @@ const Login = () => {
       .then(result => {
         const user = result.user;
         console.log(user);
+
+        const userData = { name:user.displayName, email: user.email, photoURL:user.photoURL}
+
+            fetch('http://localhost:5000/users',{
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(userData)
+            })
+            .then(res => res.json())
+            .then(data => {
+              if(data.insertedId){
+
+
+                navigate(from, { replace: true });
+              }
+            })
+
         setSuccess(null);
-        navigate(from, { replace: true });
+        
       })
       .catch(error => {
         console.log(error);

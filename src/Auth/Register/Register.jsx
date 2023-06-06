@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { updateProfile } from 'firebase/auth';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../AuthProvider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     const { createUser, logOut, setSuccess } = useContext(AuthContext);
@@ -44,9 +45,31 @@ const Register = () => {
 
             console.log(user);
             reset();
-            setSuccess('*Registration complete! You can now Login');
-            logOut();
-            navigate('/login');
+
+            const userData = { name, email, photoURL }
+
+            fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(userData)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.insertedId) {
+                        reset();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Registration complete! You can now Login',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        logOut();
+                        navigate('/login');
+                    }
+                })
+
+
         } catch (error) {
             console.log(error);
             setError('*This E-mail already exists*');
@@ -64,7 +87,7 @@ const Register = () => {
                             <span className="font-semibold italic">"Language Express"</span>
                         </p>
                     </div>
-                    
+
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 p-10">
                         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                             <div className="form-control">
@@ -188,7 +211,7 @@ const Register = () => {
                                 </small>
                             </h2>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
