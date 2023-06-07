@@ -1,15 +1,23 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { AuthContext } from '../Auth/AuthProvider/AuthProvider';
+
 
 const Dashboard = () => {
 
-    // const isAdmin = true;
+    const [users, setUsers] = useState()
 
-    const { data: users = [], refetch } = useQuery(['users'], async () => {
-        const res = await fetch('http://localhost:5000/users')
-        return res.json()
-    })
+    const {user, loading} = useContext(AuthContext)
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/currentuser/${user?.email}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data[0].role);
+            setUsers(data[0])
+        })
+    }, [loading])
+
 
     return (
         <div className="drawer lg:drawer-open">
@@ -23,43 +31,39 @@ const Dashboard = () => {
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
 
-                    {/* {
-                        isAdmin ?
-                            <> <li><Link to='manageclasses'>Manage Classes</Link></li>
-                                <li><Link to='manageusers'>Manage Users</Link></li>
-                            </> :
-                            <>
-                                <li><Link to='myselectedclass'>My Selected Classes</Link></li>
-                                <li><Link to='myenrolledclass'>My Enrolled Classes</Link></li>
-                            </>
-                    } */}
+                    
 
                     {
-                        users.filter(user => user.role == "student").map(student =>
-                            <div key={student._id}>
-                                <li><Link to='myselectedclass'>My Selected Classes</Link></li>
-                                <li><Link to='myenrolledclass'>My Enrolled Classes</Link></li>
-                            </div>
-                        )
+                        users?.role == 'admin' &&
+
+                        <>
+                            <li><Link to='manageclasses'>Manage Classes</Link></li>
+                            <li><Link to='manageusers'>Manage Users</Link></li>
+                        </>
+                        
+
                     }
 
                     {
-                        users.filter(user => user.role == "instructor").map(instructor =>
-                            <div key={instructor._id}>
-                                <li><Link to='addaclass'>Add a class</Link></li>
-                                <li><Link to='myclass'>My Classes</Link></li>
-                            </div>
-                        )
+                        users?.role === 'instructor' &&
+                        <>
+                            <li><Link to='myselectedclass'>Add a class</Link></li>
+                            <li><Link to='myenrolledclass'>My Classes</Link></li>
+
+                        </>
+
                     }
 
                     {
-                        users.filter(user => user.role == "admin").map(admin =>
-                            <div key={admin._id}>
-                                <li><Link to='manageclasses'>Manage Classes</Link></li>
-                                <li><Link to='manageusers'>Manage Users</Link></li>
-                            </div>
-                        )
+                        users?.role === 'student' &&
+                        <>
+                            <li><Link to='myselectedclass'>My Selected Classes</Link></li>
+                            <li><Link to='myenrolledclass'>My Enrolled Classes</Link></li>
+
+                        </>
+
                     }
+
 
 
 
@@ -67,6 +71,7 @@ const Dashboard = () => {
                     <li><Link to='/'>Home</Link></li>
                     <li><Link to='/instructors'>Instructors</Link></li>
                     <li><Link to='/classes'>Classes</Link></li>
+                   
 
                 </ul>
 
