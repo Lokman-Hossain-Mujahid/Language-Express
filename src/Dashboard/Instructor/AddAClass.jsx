@@ -1,24 +1,42 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
+
+const img_hosting_token=import.meta.env.VITE_Image_Upload_token
 const AddAClass = () => {
-
+    const [axiosSecure] = useAxiosSecure();
     const { user } = useContext(AuthContext)
     const { register, handleSubmit, formState: {errors} } = useForm();
+    const img_hosting_url = `https://api.imgbb.com/1/upload?expiration=600&key=${img_hosting_token}`
 
     const onSubmit = (data) => {
-        // Create a class in the database with the submitted data
-        const classData = {
-            ...data,
-            status: 'pending',
-        };
 
-        // Perform the necessary database operations to create the class
-        // Example: make an API request or use a database library
+      const formData = new FormData();
+      formData.append('image', data.image[0])
+        
+        fetch(img_hosting_url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(imgResponse => {
+            if(imgResponse.success){
+                const imgURL = imgResponse.data.display_url;
+                const {className, availableSeats, price} = data;
+                const classItem = {className, image: imgURL, instructorName: user.displayName, instructorEmail: user.email, availableSeats, price: parseFloat(price)}
+                console.log(classItem);
+                axiosSecure.post('/classes', classItem)
+                .then(data => {
+                    console.log('after posting new class', data.data);
+                })
+            }
+        })
 
-        console.log(classData);
     };
+
+    console.log(img_hosting_token);
 
     return (
         <div className='md:my-0 md:h-[100vh] hero bg-orange-300 py-5 md:w-full md:mx-auto rounded-lg'>
@@ -51,10 +69,11 @@ const AddAClass = () => {
                         Instructor Name
                     </label>
                     <input
+                        name='instructorName'
                         id="instructorName"
                         type="text"
                         value={user?.displayName}
-                        readOnly
+                        readOnly                       
                         className="input input-bordered"
                     />
                 </div>
@@ -63,6 +82,7 @@ const AddAClass = () => {
                         Instructor Email
                     </label>
                     <input
+                        name='instructorEmail'
                         id="instructorEmail"
                         type="text"
                         value={user?.email}
