@@ -53,9 +53,7 @@ const ManageUsers = () => {
 
     return (
         <div className='w-full'>
-            <div>
-                <h2>{users.length}</h2>
-            </div>
+
             <div className="overflow-x-auto">
                 <table className="table table-zebra">
                     {/* head */}
@@ -72,7 +70,7 @@ const ManageUsers = () => {
                     <tbody>
 
                         {
-                            users.map((user, index) =>
+                            users.filter(user => user.email !== 'rclash163@gmail.com' ).map((user, index) =>
                                 <tr key={index}>
                                     <th>{index + 1}</th>
                                     <td>{user.name}</td>

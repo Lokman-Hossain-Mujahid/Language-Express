@@ -47,8 +47,8 @@ const Dashboard = () => {
                     {
                         users?.role === 'instructor' &&
                         <>
-                            <li><Link to='myselectedclass'>Add a class</Link></li>
-                            <li><Link to='myenrolledclass'>My Classes</Link></li>
+                            <li><Link to='addaclass'>Add a class</Link></li>
+                            <li><Link to='myclass'>My Classes</Link></li>
 
                         </>
 
@@ -57,7 +57,7 @@ const Dashboard = () => {
                     {
                         users?.role === 'student' &&
                         <>
-                            <li><Link to='myselectedclass'>My Selected Classes</Link></li>
+                            <li><Link to='myselectedclasses'>My Selected Classes</Link></li>
                             <li><Link to='myenrolledclass'>My Enrolled Classes</Link></li>
 
                         </>
