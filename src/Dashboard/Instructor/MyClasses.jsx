@@ -11,7 +11,7 @@ const MyClasses = () => {
         <div className='w-full'>
 
             <div className="overflow-x-auto">
-                <table className="table table-zebra">
+                <table className="table table-zebra font-nunito">
                     {/* head */}
                     <thead>
                         <tr>
@@ -30,7 +30,7 @@ const MyClasses = () => {
                                 <tr key={index}>
                                     <th>{index + 1}</th>
                                     <th>{allClass.className}</th>
-                                    <th></th>
+                                    <th>{allClass.status}</th>
                                     <th></th>
                                     <th></th>
                                     <th><button className="btn btn-warning"><RxUpdate/></button></th>
