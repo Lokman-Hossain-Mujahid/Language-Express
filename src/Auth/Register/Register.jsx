@@ -46,7 +46,19 @@ const Register = () => {
             console.log(user);
             reset();
 
-            const userData = { name, email, photoURL }
+            // Add role to user
+            await user.getIdTokenResult(true).then((idTokenResult) => {
+                user.role = 'student'; // Assign the 'student' role to the user
+                idTokenResult.claims.role = 'student'; // Assign the 'student' role to the user's ID token
+                user.getIdToken(true); // Refresh the user's ID token with the updated claims
+            });
+
+            const userData = {
+                name,
+                email,
+                photoURL,
+                role: 'student' // Include the role in the userData object
+            };
 
             fetch('http://localhost:5000/users', {
                 method: 'POST',
