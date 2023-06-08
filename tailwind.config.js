@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage:{
+        'home-banner': "url('./public/images/instructors.jpg')"
+      },
       fontFamily: {
         nunito: ['Nunito'],
         bebas: ['Bebas Neue']
