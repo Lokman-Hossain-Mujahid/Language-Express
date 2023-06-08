@@ -11,6 +11,8 @@ const MyClasses = () => {
 
     const { user, loading } = useContext(AuthContext)
 
+    const [updated, setUpdated] = useState(false)
+
     useEffect(() => {
 
         if (!loading) {
@@ -20,8 +22,9 @@ const MyClasses = () => {
                     setClasses(data)
                 })
         }
+        setUpdated(false)
 
-    }, [loading])
+    }, [loading, updated])
 
 
 
@@ -30,7 +33,7 @@ const MyClasses = () => {
             <div className='overflow-x-auto'>
                 <table className='table table-zebra font-nunito'>
                     <thead>
-                        <tr>
+                        <tr className='text-center'>
                             <th>#</th>
                             <th>Class Name</th>
                             <th>Status</th>
@@ -41,7 +44,7 @@ const MyClasses = () => {
                     </thead>
                     <tbody>
                         {
-                        classes.map((singleClass, index) => <MySingleClasses key={index} index={index} singleClass={singleClass} ></MySingleClasses>)
+                        classes.map((singleClass, index) => <MySingleClasses key={index} index={index} singleClass={singleClass} setUpdated={setUpdated} ></MySingleClasses>)
                         }
                     </tbody>
                 </table>

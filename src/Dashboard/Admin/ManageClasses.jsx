@@ -11,40 +11,40 @@ const ManageClasses = () => {
 
     const handleGetFeedback = (event) => {
         event.preventDefault();
-    
+
         const form = event.target;
         const feedBack = form.feedBack.value;
         const id = form.id.value;
         console.log(feedBack);
         fetch(`http://localhost:5000/feedback/${id}`, {
-          method: 'PUT',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify({ feedBack: feedBack }),
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({ feedBack: feedBack }),
         })
-          .then((res) => res.json())
-          .then((result) => {
-            console.log(result);
-            if (result.modifiedCount > 0) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Feedback Submitted',
-                text: 'Your feedback has been submitted successfully.',
-                confirmButtonText: 'OK',
-                onClose: () => {
-                  // Handle any necessary actions after the alert is closed
-                  reset(); // Reset the form fields
-                  setModalOpen(false); // Close the modal
-                },
-              });
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      };
-    
+            .then((res) => res.json())
+            .then((result) => {
+                console.log(result);
+                if (result.modifiedCount > 0) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Feedback Submitted',
+                        text: 'Your feedback has been submitted successfully.',
+                        confirmButtonText: 'OK',
+                        onClose: () => {
+                            // Handle any necessary actions after the alert is closed
+                            reset(); // Reset the form fields
+                            setModalOpen(false); // Close the modal
+                        },
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
 
 
     // DATA FETCHING
@@ -163,11 +163,13 @@ const ManageClasses = () => {
                                             <hr className="md:w-1/4 mx-auto border-yellow-500 mb-6" />
                                             <div className="text-center md:my-6 md:h-[70vh] hero bg-orange-300 py-5 md:w-2/4 mx-auto rounded-lg">
                                                 <form className='flex flex-col' onSubmit={handleGetFeedback}>
-
-                                                    <textarea name='feedBack' defaultValue={addClass.feedBack
+                                                    <label htmlFor="email" className="label">
+                                                        Add Description
+                                                    </label>
+                                                    <textarea name='feedBack' required={true} defaultValue={addClass.feedBack
                                                     } className="textarea my-2" placeholder="feedback"></textarea>
-                                                    <input name='id' type="text" value={addClass._id} />
-                                                    <input name='email' type="email" value={addClass.instructorEmail} />
+                                                    <input className='hidden' name='id' type="text" value={addClass._id} />
+                                                    <input className='hidden' name='email' type="email" value={addClass.instructorEmail} />
                                                     <input className='btn btn-primary my-2' type='submit'></input>
                                                 </form>
                                             </div>
