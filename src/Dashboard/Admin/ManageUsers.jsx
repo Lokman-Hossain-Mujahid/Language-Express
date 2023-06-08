@@ -9,8 +9,7 @@ const ManageUsers = () => {
     return res.json();
   });
 
-  const [disabledInstructorUsers, setDisabledInstructorUsers] = useState([]);
-  const [disabledAdminUsers, setDisabledAdminUsers] = useState([]);
+
 
   const handleMakeAdmin = user => {
     fetch(`http://localhost:5000/users/admin/${user._id}`, {
@@ -21,13 +20,6 @@ const ManageUsers = () => {
         console.log(data);
         if (data.modifiedCount) {
           refetch();
-          setDisabledAdminUsers([
-            ...disabledAdminUsers.filter(id => id !== user._id),
-            user._id
-          ]);
-          setDisabledInstructorUsers([
-            ...disabledInstructorUsers.filter(id => id !== user._id)
-          ]);
           Swal.fire({
             position: 'top',
             icon: 'success',
@@ -48,13 +40,6 @@ const ManageUsers = () => {
         console.log(data);
         if (data.modifiedCount) {
           refetch();
-          setDisabledInstructorUsers([
-            ...disabledInstructorUsers.filter(id => id !== user._id),
-            user._id
-          ]);
-          setDisabledAdminUsers([
-            ...disabledAdminUsers.filter(id => id !== user._id)
-          ]);
           Swal.fire({
             position: 'top',
             icon: 'success',
@@ -90,34 +75,14 @@ const ManageUsers = () => {
                   <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td>
-                    {user.role === 'instructor' ? (
-                      <button className="btn btn-warning disabled">
-                        <FaChalkboardTeacher />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleMakeInstructor(user)}
-                        className="btn btn-warning"
-                        disabled={disabledInstructorUsers.includes(user._id)}
-                      >
-                        <FaChalkboardTeacher />
-                      </button>
-                    )}
+                    <button onClick={() => handleMakeInstructor(user)} className="btn btn-warning ">
+                      <FaChalkboardTeacher />
+                    </button>
                   </td>
                   <td>
-                    {user.role === 'admin' ? (
-                      <button className="btn btn-warning disabled">
-                        <FaUserShield />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleMakeAdmin(user)}
-                        className="btn btn-warning"
-                        disabled={disabledAdminUsers.includes(user._id)}
-                      >
-                        <FaUserShield />
-                      </button>
-                    )}
+                    <button onClick={() => handleMakeAdmin(user)} className="btn btn-warning ">
+                      <FaUserShield />
+                    </button>
                   </td>
                 </tr>
               ))}
