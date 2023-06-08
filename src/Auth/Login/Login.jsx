@@ -6,9 +6,12 @@ import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 
 
 const Login = () => {
+
   const { googleSignIn, signIn, success, setSuccess } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const location = useLocation();
+  
   const { handleSubmit, register, formState: { errors } } = useForm();
 
   const from = location.state?.from?.pathname || '/';
