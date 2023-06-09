@@ -43,7 +43,7 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
       .then((result) => {
         console.log(result);
         setIsClassSelected(true);
-        // Update the selected classes in the server-side database
+
         fetch(`http://localhost:5000/updateSelectedClasses/${email}`, {
           method: 'PUT',
           headers: {

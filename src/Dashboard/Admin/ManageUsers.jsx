@@ -9,14 +9,12 @@ const ManageUsers = () => {
     return res.json();
   });
 
-
-
-  const handleMakeAdmin = user => {
+  const handleMakeAdmin = (user) => {
     fetch(`http://localhost:5000/users/admin/${user._id}`, {
-      method: 'PATCH'
+      method: 'PATCH',
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data);
         if (data.modifiedCount) {
           refetch();
@@ -25,18 +23,18 @@ const ManageUsers = () => {
             icon: 'success',
             title: `${user.name} is an Admin Now!`,
             showConfirmButton: false,
-            timer: 2000
+            timer: 2000,
           });
         }
       });
   };
 
-  const handleMakeInstructor = user => {
+  const handleMakeInstructor = (user) => {
     fetch(`http://localhost:5000/users/instructor/${user._id}`, {
-      method: 'PATCH'
+      method: 'PATCH',
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data);
         if (data.modifiedCount) {
           refetch();
@@ -45,7 +43,7 @@ const ManageUsers = () => {
             icon: 'success',
             title: `${user.name} is an Instructor Now!`,
             showConfirmButton: false,
-            timer: 2000
+            timer: 2000,
           });
         }
       });
@@ -67,7 +65,7 @@ const ManageUsers = () => {
           </thead>
           <tbody>
             {users
-              .filter(user => user.email !== 'rclash163@gmail.com')
+              .filter((user) => user.email !== 'rclash163@gmail.com')
               .map((user, index) => (
                 <tr key={index}>
                   <th>{index + 1}</th>
@@ -75,12 +73,20 @@ const ManageUsers = () => {
                   <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td>
-                    <button onClick={() => handleMakeInstructor(user)} className="btn btn-warning ">
+                    <button
+                      onClick={() => handleMakeInstructor(user)}
+                      className="btn btn-warning"
+                      disabled={user.role === 'instructor' || user.role === 'admin'}
+                    >
                       <FaChalkboardTeacher />
                     </button>
                   </td>
                   <td>
-                    <button onClick={() => handleMakeAdmin(user)} className="btn btn-warning ">
+                    <button
+                      onClick={() => handleMakeAdmin(user)}
+                      className="btn btn-warning"
+                      disabled={user.role === 'admin'}
+                    >
                       <FaUserShield />
                     </button>
                   </td>
