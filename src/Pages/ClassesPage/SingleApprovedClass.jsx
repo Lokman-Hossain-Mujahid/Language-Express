@@ -13,7 +13,7 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
     fetch(`http://localhost:5000/currentUser/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data[0]);
+        // console.log(data[0]);
         setData(data[0]);
       });
   }, [loading, user]);

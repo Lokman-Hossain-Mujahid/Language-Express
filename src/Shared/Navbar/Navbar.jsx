@@ -49,7 +49,7 @@ const Navbar = () => {
                                 <img className='w-20 pt-3' src="/images/logo.png" alt="" />
                             </div>
                             <div>
-                                <Link to="/" className="normal-case md:text-3xl font-semibold italic text-white">LanguageExpress</Link>
+                                <Link to="/" className="normal-case text-lg md:text-3xl font-semibold italic text-white">LanguageExpress</Link>
                             </div>
                         </div>
                     </div>
