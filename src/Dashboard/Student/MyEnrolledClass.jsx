@@ -41,11 +41,6 @@ const MyEnrolledClass = () => {
             </div>
         </div>
 
-        // <div>
-        //     {
-        //         enrolledClasses.map((enrolledClass, index)=> <MySingleEnrolledClass key={index} index={index} enrolledClass={enrolledClass.classData}></MySingleEnrolledClass>)
-        //     }
-        // </div>
     );
 };
 

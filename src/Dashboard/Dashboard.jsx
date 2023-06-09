@@ -37,8 +37,8 @@ const Dashboard = () => {
                         users?.role == 'admin' &&
 
                         <>
-                            <li><Link to='manageclasses'>Manage Classes</Link></li>
-                            <li><Link to='manageusers'>Manage Users</Link></li>
+                            <li><Link to='/dashboard/manageclasses'>Manage Classes</Link></li>
+                            <li><Link to='/dashboard/manageusers'>Manage Users</Link></li>
                         </>
                         
 
@@ -47,8 +47,8 @@ const Dashboard = () => {
                     {
                         users?.role === 'instructor' &&
                         <>
-                            <li><Link to='addaclass'>Add a class</Link></li>
-                            <li><Link to='myclass'>My Classes</Link></li>
+                            <li><Link to='/dashboard/addaclass'>Add a class</Link></li>
+                            <li><Link to='/dashboard/myclass'>My Classes</Link></li>
 
                         </>
 
@@ -57,9 +57,9 @@ const Dashboard = () => {
                     {
                         users?.role === 'student' &&
                         <>
-                            <li><Link to='myselectedclasses'>My Selected Classes</Link></li>
-                            <li><Link to='myenrolledclass'>My Enrolled Classes</Link></li>
-
+                            <li><Link to='/dashboard/myselectedclasses'>My Selected Classes</Link></li>
+                            <li><Link to='/dashboard/myenrolledclass'>My Enrolled Classes</Link></li>
+                            <li><Link to='/dashboard/paymentHistory'>PaymentHistory</Link></li>
                         </>
 
                     }
