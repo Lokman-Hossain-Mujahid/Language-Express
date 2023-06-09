@@ -63,9 +63,9 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
         </figure>
         <div className="card-body items-center text-center">
           <h2 className="card-title">{className}</h2>
-          <p>Name: {instructorName}</p>
-          <p>Seats available: {availableSeats}</p>
-          <p>price: ${price}</p>
+          <p className='font-semibold'>Name: {instructorName}</p>
+          <p className='font-semibold'>Seats available: {availableSeats}</p>
+          <p className='font-semibold'>price: ${price}</p>
           <div className="card-actions">
             <button className="btn" onClick={handleSelectClass} disabled={isSelected}>
               {isSelected ? 'Class Selected' : 'Select Class'}

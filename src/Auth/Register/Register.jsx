@@ -90,6 +90,7 @@ const Register = () => {
 
     return (
         <div className="hero bg-orange-300 mx-auto">
+            <Link to="/"><button className='absolute top-2 left-2 px-3 py-3 text-white font-bebas text-3xl bg-gradient-to-r from-orange-500 to-orange-500 rounded-lg mt-4 md:mt-0'>Return To Home</button></Link>
             <div>
                 <div className="hero-content flex-col lg:flex">
                     <div className="text-center">

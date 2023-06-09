@@ -12,8 +12,8 @@ const SingleInstructor = ({ instructor }) => {
                     <img src={photoURL} alt="Shoes" className="rounded-xl" />
                 </figure>
                 <div className="card-body items-center text-center">
-                    <h2 className="card-title">{name}</h2>
-                    <p>{email}</p>
+                    <h2 className="card-title">Name: {name}</h2>
+                    <p className='font-semibold'>email: {email}</p>
                 </div>
             </div>
         </div>
