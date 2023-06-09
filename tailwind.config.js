@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       backgroundImage:{
-        'home-banner': "url('./public/images/instructors.png')"
+        'home-banner': "url('/images/instructors.png')"
       },
       fontFamily: {
         nunito: ['Nunito'],
@@ -17,7 +17,7 @@ export default {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["cupcake", "dark"],
+    themes: ["cupcake", "black"],
   },
 }
 

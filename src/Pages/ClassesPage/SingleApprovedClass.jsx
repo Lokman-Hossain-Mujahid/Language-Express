@@ -5,7 +5,7 @@ import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 const SingleApprovedClass = ({ approvedClass, index }) => {
   const { image, className, instructorName, availableSeats, price } = approvedClass;
   const [data, setData] = useState();
-  const [isClassSelected, setIsClassSelected] = useState(false);
+  const [isClassSelected, setIsClassSelected] = useState(false); // New state variable
 
   const { user, loading } = useContext(AuthContext);
 
@@ -15,9 +15,6 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
       .then((data) => {
         console.log(data[0]);
         setData(data[0]);
-        setIsClassSelected(
-          data[0]?.addedClasses?.some((selectedClass) => selectedClass._id === approvedClass._id)
-        );
       });
   }, [loading, user]);
 
@@ -37,7 +34,7 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        setIsClassSelected(true);
+        setIsClassSelected(true); // Update local state to indicate class selection
 
         Swal.fire({
           title: 'Success',
@@ -63,10 +60,11 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
             <button
               onClick={() => handleAppliedClasses(user?.email, user)}
               disabled={
-                isClassSelected ||
+                isClassSelected || // Use the local state variable
                 data?.role === 'admin' ||
                 data?.role === 'instructor' ||
-                approvedClass.seats === '0'
+                approvedClass.seats === '0' ||
+                (data?.addedClasses && data?.addedClasses.find((Class) => Class._id === approvedClass._id))
               }
               className={`btn btn-primary ${
                 approvedClass.seats === '0' && 'disabled'
