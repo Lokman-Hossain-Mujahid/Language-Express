@@ -4,8 +4,9 @@ import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 
 const SingleApprovedClass = ({ approvedClass, index }) => {
   const { image, className, instructorName, availableSeats, price } = approvedClass;
-  const [data, setData] = useState();
-  const [isClassSelected, setIsClassSelected] = useState(false); // New state variable
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isClassSelected, setIsClassSelected] = useState(false);
 
   const { user, loading } = useContext(AuthContext);
 
@@ -13,10 +14,17 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
     fetch(`http://localhost:5000/currentUser/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data[0]);
         setData(data[0]);
+        setIsLoading(false);
       });
   }, [loading, user]);
+
+  useEffect(() => {
+    if (data) {
+      const selectedClasses = data.selectedClasses || [];
+      setIsClassSelected(selectedClasses.includes(approvedClass._id));
+    }
+  }, [approvedClass, data]);
 
   const handleAppliedClasses = (email, user) => {
     if (!user) {
@@ -34,7 +42,15 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        setIsClassSelected(true); // Update local state to indicate class selection
+        setIsClassSelected(true);
+        // Update the selected classes in the server-side database
+        fetch(`http://localhost:5000/updateSelectedClasses/${email}`, {
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({ selectedClasses: [approvedClass._id] }),
+        });
 
         Swal.fire({
           title: 'Success',
@@ -44,6 +60,10 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
         });
       });
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -60,7 +80,7 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
             <button
               onClick={() => handleAppliedClasses(user?.email, user)}
               disabled={
-                isClassSelected || // Use the local state variable
+                isClassSelected ||
                 data?.role === 'admin' ||
                 data?.role === 'instructor' ||
                 approvedClass.seats === '0' ||
