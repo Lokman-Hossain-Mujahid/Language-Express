@@ -13,7 +13,7 @@ const ClassesPage = () => {
     );
 
     return (
-        <div className='grid grid-cols-3 w-[80%] mx-auto gap-10 my-6'>
+        <div className='grid grid-cols-3 mx-auto gap-10 my-6'>
             {
                 approvedClasses.filter(approvedClass => approvedClass.status === 'approved').map((approvedClass, index) => <SingleApprovedClass key={index} index={index} approvedClass={approvedClass}></SingleApprovedClass>)
 
