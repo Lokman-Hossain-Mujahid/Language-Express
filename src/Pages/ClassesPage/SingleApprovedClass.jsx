@@ -1,74 +1,78 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 
 const SingleApprovedClass = ({ approvedClass, index }) => {
   const { image, className, instructorName, availableSeats, price } = approvedClass;
-  const [isSelected, setIsSelected] = useState(false);
+  const [data, setData] = useState();
+  const [isClassSelected, setIsClassSelected] = useState(false);
 
-  const handleSelectClass = () => {
-    const selectedClass = {
-      image,
-      className,
-      instructorName,
-      availableSeats,
-      price
-    };
+  const { user, loading } = useContext(AuthContext);
 
-    fetch('http://localhost:5000/selectedClasses', {
+  useEffect(() => {
+    fetch(`http://localhost:5000/currentUser/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data[0]);
+        setData(data[0]);
+        setIsClassSelected(
+          data[0]?.addedClasses?.some((selectedClass) => selectedClass._id === approvedClass._id)
+        );
+      });
+  }, [loading, user]);
+
+  const handleAppliedClasses = (email, user) => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    fetch(`http://localhost:5000/manageUserAddClass/${email}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'content-type': 'application/json',
       },
-      body: JSON.stringify(selectedClass)
+      body: JSON.stringify({ addedClass: [approvedClass] }),
     })
-      .then(response => {
-        if (response.ok) {
-          // Show success alert
-          Swal.fire({
-            icon: 'success',
-            title: 'Class selected successfully!',
-            showConfirmButton: false,
-            timer: 1500
-          });
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setIsClassSelected(true);
 
-          // Disable the button for the selected class
-          setIsSelected(true);
-        } else {
-          // Show error alert
-          Swal.fire({
-            icon: 'error',
-            title: 'Failed to select the class.',
-            text: 'Please try again.',
-            confirmButtonText: 'OK'
-          });
-        }
-      })
-      .catch(error => {
-        console.error('Error occurred while selecting the class:', error);
-        // Show error alert
         Swal.fire({
-          icon: 'error',
-          title: 'An error occurred',
-          text: 'Please try again.',
-          confirmButtonText: 'OK'
+          title: 'Success',
+          text: 'Class added successfully',
+          icon: 'success',
+          confirmButtonText: 'OK',
         });
       });
   };
 
   return (
     <div>
-      <div className="card w-96 bg-orange-400 h-[50vh] shadow-xl font-nunito">
+      <div className="card w-96 bg-orange-400 h-[50vh] shadow-xl font-nunito text-white">
         <figure className="px-10 pt-10">
           <img src={image} alt="Shoes" className="rounded-xl" />
         </figure>
         <div className="card-body items-center text-center">
           <h2 className="card-title">{className}</h2>
-          <p className='font-semibold'>Name: {instructorName}</p>
-          <p className='font-semibold'>Seats available: {availableSeats}</p>
-          <p className='font-semibold'>price: ${price}</p>
+          <p className="font-semibold">Name: {instructorName}</p>
+          <p className="font-semibold">Seats available: {availableSeats}</p>
+          <p className="font-semibold">price: ${price}</p>
           <div className="card-actions">
-            <button className="btn" onClick={handleSelectClass} disabled={isSelected}>
-              {isSelected ? 'Class Selected' : 'Select Class'}
+            <button
+              onClick={() => handleAppliedClasses(user?.email, user)}
+              disabled={
+                isClassSelected ||
+                data?.role === 'admin' ||
+                data?.role === 'instructor' ||
+                approvedClass.seats === '0'
+              }
+              className={`btn btn-primary ${
+                approvedClass.seats === '0' && 'disabled'
+              } ${user?.role === 'admin' ? 'disabled' : user?.role === 'instructor' && 'disabled'}`}
+            >
+              {isClassSelected ? 'Already Selected' : 'Select Class'}
             </button>
           </div>
         </div>
