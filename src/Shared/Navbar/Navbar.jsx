@@ -6,6 +6,10 @@ const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
 
+
+
+
+    
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "cupcake") 
 
     const handleToggle = (e) => {
@@ -21,6 +25,11 @@ const Navbar = () => {
         const localTheme = localStorage.getItem("theme");
         document.querySelector("html").setAttribute("data-theme", localTheme);
     }, [theme]);
+
+
+
+
+
 
     const handleLogOut = () => {
         logOut()

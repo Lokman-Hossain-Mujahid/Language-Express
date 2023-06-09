@@ -13,7 +13,7 @@ const Dashboard = () => {
         fetch(`http://localhost:5000/currentuser/${user?.email}`)
         .then(res => res.json())
         .then(data => {
-            console.log(data[0].role);
+            // console.log(data[0].role);
             setUsers(data[0])
         })
     }, [loading])

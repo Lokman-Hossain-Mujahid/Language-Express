@@ -1,10 +1,51 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
+import MySingleEnrolledClass from './MySingleEnrolledClass';
 
 const MyEnrolledClass = () => {
+
+    const { user, loading } = useContext(AuthContext);
+
+    const [enrolledClasses, setEnrolledClasses] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/currentUser/${user?.email}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setEnrolledClasses(data[0]?.paymentHistory || []);
+            });
+    }, [loading, user]);
+
     return (
-        <div>
-            <h2>MyEnrolledClasses</h2>
+
+        <div className="w-full">
+            <div className="overflow-x-auto">
+                <table className="table table-zebra">
+                    <thead>
+                        <tr className='text-center'>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>ClassName</th>
+                            <th>InstructorName</th>
+                            <th>SeatsAvailable</th>
+                            <th>Price</th>
+                            <th>Payment Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            enrolledClasses.map((enrolledClass, index) => <MySingleEnrolledClass key={index} index={index} enrolledClass={enrolledClass.classData}></MySingleEnrolledClass>)
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        // <div>
+        //     {
+        //         enrolledClasses.map((enrolledClass, index)=> <MySingleEnrolledClass key={index} index={index} enrolledClass={enrolledClass.classData}></MySingleEnrolledClass>)
+        //     }
+        // </div>
     );
 };
 
