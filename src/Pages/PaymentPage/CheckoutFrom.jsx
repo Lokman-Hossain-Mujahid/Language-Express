@@ -4,6 +4,8 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 
+  
+
 const CheckoutFrom = ({ price, classData, onSuccess }) => {
   const stripe = useStripe();
   const elements = useElements();

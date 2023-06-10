@@ -14,7 +14,7 @@ const MySingleEnrolledClass = ({ enrolledClass, index }) => {
             </td>
             <td>{className}</td>
             <td>{instructorName}</td>
-            <td>{availableSeats}</td>
+            
             <td>${price}</td>
             <td><button className='btn btn-disabled'>Paid</button></td>
         </tr>

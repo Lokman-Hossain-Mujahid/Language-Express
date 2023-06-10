@@ -27,7 +27,7 @@ const MyEnrolledClass = () => {
                             <th>Image</th>
                             <th>ClassName</th>
                             <th>InstructorName</th>
-                            <th>SeatsAvailable</th>
+                            
                             <th>Price</th>
                             <th>Payment Status</th>
                         </tr>
