@@ -39,6 +39,8 @@ const MySingleClasses = ({ singleClass, index, setUpdated }) => {
       });
   };
 
+  const isFeedbackDisabled = singleClass.status !== 'denied';
+
   return (
     <>
       <tr className="text-center">
@@ -47,7 +49,7 @@ const MySingleClasses = ({ singleClass, index, setUpdated }) => {
         <td>{singleClass.status}</td>
         <td>{singleClass.enrolledStudents}</td>
         <td>
-          <label htmlFor={`feedback-${singleClass._id}`} className="btn">
+          <label htmlFor={`feedback-${singleClass._id}`} className="btn" disabled={isFeedbackDisabled}>
             Feedback
           </label>
           <input

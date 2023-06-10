@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       backgroundImage:{
-        'home-banner': "url('/images/instructors.png')"
+        'home-banner': "url('./public/images/flags.jpg')"
       },
       fontFamily: {
         nunito: ['Nunito'],

@@ -5,10 +5,14 @@ import Footer from '../../Shared/Footer/Footer';
 
 const HomePage = () => {
     return (
-        <div className='max-w-7xl  md:mx-auto mt-1 md:mt-4'>
+        <div className=''>
             <Navbar></Navbar>
-            <Outlet></Outlet>
-            <Footer></Footer>
+            <div  className='my-2'>
+                <Outlet></Outlet>
+            </div>
+            <div className=''>
+                <Footer></Footer>
+            </div>
         </div>
     );
 };

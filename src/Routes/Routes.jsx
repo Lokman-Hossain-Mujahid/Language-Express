@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/instructors",
-        element: <PrivateRoute><InstructorPage></InstructorPage></PrivateRoute>
+        element: <InstructorPage></InstructorPage>
       },
       {
         path: "/classes",
@@ -57,31 +57,31 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'myselectedclasses',
-        element: <StudentRoute><MySelectedClass></MySelectedClass></StudentRoute>
+        element: <PrivateRoute><StudentRoute><MySelectedClass></MySelectedClass></StudentRoute></PrivateRoute>
       },
       {
         path: 'myenrolledclass',
-        element: <StudentRoute><MyEnrolledClass></MyEnrolledClass></StudentRoute>
+        element: <PrivateRoute><StudentRoute><MyEnrolledClass></MyEnrolledClass></StudentRoute></PrivateRoute>
       },
       {
         path: 'paymentHistory',
-        element: <StudentRoute><PaymentHistory></PaymentHistory></StudentRoute>
+        element: <PrivateRoute><StudentRoute><PaymentHistory></PaymentHistory></StudentRoute></PrivateRoute>
       },
       {
         path: 'manageclasses',
-        element: <AdminRoute><ManageClasses></ManageClasses></AdminRoute>
+        element: <PrivateRoute><AdminRoute><ManageClasses></ManageClasses></AdminRoute></PrivateRoute>
       },
       {
         path: 'manageusers',
-        element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
+        element: <PrivateRoute><AdminRoute><ManageUsers></ManageUsers></AdminRoute></PrivateRoute>
       },
       {
         path: 'addaclass',
-        element: <InstructorRoute><AddAClass></AddAClass></InstructorRoute>
+        element: <PrivateRoute><InstructorRoute><AddAClass></AddAClass></InstructorRoute></PrivateRoute>
       },
       {
         path: 'myclass',
-        element: <InstructorRoute><MyClasses></MyClasses></InstructorRoute>
+        element: <PrivateRoute><InstructorRoute><MyClasses></MyClasses></InstructorRoute></PrivateRoute>
       }
     ]
   },

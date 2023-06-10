@@ -33,7 +33,7 @@ const Register = () => {
         }
 
         if (!passwordRegex.test(password)) {
-            setError('*Password requirements not met');
+            setError('*Password needs to be 6 characters long with one capital and special character*');
             return;
         }
 
