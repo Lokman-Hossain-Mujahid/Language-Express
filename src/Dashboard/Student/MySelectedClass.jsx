@@ -1,12 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useEffect, useState } from 'react';
+// MySelectedClass.js
+import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
-
-import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutFrom from '../../Pages/PaymentPage/CheckoutFrom';
+import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
@@ -14,6 +12,7 @@ const MySelectedClass = () => {
   const [selectedClasses, setSelectedClasses] = useState([]);
   const { user, loading } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
+  const [successfulPayments, setSuccessfulPayments] = useState([]);
 
   function deleteClass(classData) {
     const updatedClasses = selectedClasses.filter(singleData => singleData._id !== classData._id);
@@ -29,6 +28,7 @@ const MySelectedClass = () => {
       .then(data => {
         console.log(data);
         setSelectedClasses(updatedClasses); // Update the state after successful deletion
+        setSuccessfulPayments(prevPayments => [...prevPayments, classData._id]); // Update successful payments state
         Swal.fire('Deleted!', 'The class has been removed.', 'success');
       })
       .catch(error => {
@@ -63,7 +63,7 @@ const MySelectedClass = () => {
           </thead>
           <tbody>
             {selectedClasses.map((classData, index) => (
-              !classData.paid && ( // Check if the class is not paid
+              !classData.paid && !successfulPayments.includes(classData._id) && (
                 <tr key={classData._id} className="text-center">
                   <td>{index + 1}</td>
                   <td className="flex justify-center">
@@ -94,12 +94,12 @@ const MySelectedClass = () => {
 
                           <div className="">
                             <Elements stripe={stripePromise}>
-                              <CheckoutFrom classData={classData} price={classData.price}></CheckoutFrom>
+                              <CheckoutFrom classData={classData} price={classData.price} onSuccess={() => deleteClass(classData)} />
                             </Elements>
                           </div>
                         </div>
                         <div className="modal-action">
-                          <label htmlFor={classData._id} className="btn" onClick={() => deleteClass(classData)}>
+                          <label htmlFor={classData._id} className="btn" >
                             Done
                           </label>
                         </div>
