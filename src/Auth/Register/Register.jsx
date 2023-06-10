@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { updateProfile } from 'firebase/auth';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
 
 const Register = () => {
-    const { createUser, logOut, setSuccess } = useContext(AuthContext);
+    const { googleSignIn, createUser, logOut, setSuccess } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const {
         register,
@@ -17,6 +18,8 @@ const Register = () => {
         watch,
     } = useForm();
 
+
+    const from = location.state?.from?.pathname || '/';
     const [error, setError] = useState('');
 
     const passwordRegex = /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^\w\s]).{6,}$/;
@@ -88,9 +91,40 @@ const Register = () => {
         }
     };
 
+
+
+    const handleGoogleSingIn = () => {
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+
+                const userData = { name: user.displayName, email: user.email, photoURL: user.photoURL, role: 'student' }
+
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify(userData)
+                })
+                    .then(res => res.json())
+                    .then(() => {
+                        navigate(from, { replace: true });
+                    })
+
+                setSuccess(null);
+                navigate('');
+
+            })
+            .catch(error => {
+                console.log(error);
+                setError(error.message);
+            });
+    };
+
+
     return (
         <div className="hero bg-orange-300 mx-auto">
-            <Link to="/"><button className='absolute top-2 left-2 px-3 py-3 text-white font-bebas text-3xl bg-gradient-to-r from-orange-500 to-orange-500 rounded-lg mt-4 md:mt-0'>Return To Home</button></Link>
+            {/* <Link to="/"><button className='absolute top-2 left-2 px-3 py-3 text-white font-bebas text-3xl bg-gradient-to-r from-orange-500 to-orange-500 rounded-lg mt-4 md:mt-0'>Return To Home</button></Link> */}
             <div>
                 <div className="hero-content flex-col lg:flex">
                     <div className="text-center">
@@ -214,6 +248,10 @@ const Register = () => {
                                 Submit
                             </button>
                         </form>
+                        <h2 className="text-center text-xl mt-2">Or</h2>
+                        <button onClick={handleGoogleSingIn} className="btn my-4">
+                            Login With Google
+                        </button>
                         <div className="mt-6">
                             <h2>
                                 <small>

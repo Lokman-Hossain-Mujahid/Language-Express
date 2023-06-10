@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import SingleApprovedClass from './SingleApprovedClass';
 
+    
+
 const ClassesPage = () => {
 
     const { data: approvedClasses = [], refetch } = useQuery(

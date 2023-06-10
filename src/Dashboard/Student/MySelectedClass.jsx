@@ -8,6 +8,8 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
+    
+
 const MySelectedClass = () => {
   const [selectedClasses, setSelectedClasses] = useState([]);
   const { user, loading } = useContext(AuthContext);
@@ -29,7 +31,7 @@ const MySelectedClass = () => {
         console.log(data);
         setSelectedClasses(updatedClasses); // Update the state after successful deletion
         setSuccessfulPayments(prevPayments => [...prevPayments, classData._id]); // Update successful payments state
-        Swal.fire('Deleted!', 'The class has been removed.', 'success');
+        // Swal.fire('Deleted!', 'The class has been removed.', 'success');
       })
       .catch(error => {
         console.error(error);

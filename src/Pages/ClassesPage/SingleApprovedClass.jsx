@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
+import { useNavigate } from 'react-router-dom';
+
+  
 
 const SingleApprovedClass = ({ approvedClass, index }) => {
   const { image, className, instructorName, availableSeats, price } = approvedClass;
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isClassSelected, setIsClassSelected] = useState(false);
+  const navigate = useNavigate();
 
   const { user, loading } = useContext(AuthContext);
 

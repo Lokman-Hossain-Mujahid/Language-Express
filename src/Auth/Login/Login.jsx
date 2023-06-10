@@ -74,7 +74,7 @@ const Login = () => {
 
   return (
     <div>
-      <Link to="/"><button className='absolute top-2 left-2 px-3 py-3 text-white font-bebas text-3xl bg-gradient-to-r from-orange-500 to-orange-500 rounded-lg mt-4 md:mt-0'>Return To Home</button></Link>
+      {/* <Link to="/"><button className='absolute top-2 left-2 px-3 py-3 text-white font-bebas text-3xl bg-gradient-to-r from-orange-500 to-orange-500 rounded-lg mt-4 md:mt-0'>Return To Home</button></Link> */}
       <div className="hero md:h-[100vh] bg-orange-300">
         <div className="text-white text-center py-2">
           {success ? <p>{success}</p> : ''}
