@@ -11,11 +11,13 @@ import img3 from "/images/words2.png"
 
 // import required modules
 import { Pagination } from "swiper";
+import { Zoom } from 'react-awesome-reveal';
 
 const HomeBanner = () => {
     return (
 
-        <div className=''>
+        <Zoom>
+            <div className=''>
             <Swiper
                 pagination={{
                     dynamicBullets: true,
@@ -29,6 +31,7 @@ const HomeBanner = () => {
                 
             </Swiper>
         </div>
+        </Zoom>
 
     );
 };
