@@ -1,4 +1,5 @@
 // MySelectedClass.js
+
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
@@ -8,36 +9,40 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
-    
-
 const MySelectedClass = () => {
   const [selectedClasses, setSelectedClasses] = useState([]);
   const { user, loading } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [successfulPayments, setSuccessfulPayments] = useState([]);
 
-  function deleteClass(classData) {
-    const updatedClasses = selectedClasses.filter(singleData => singleData._id !== classData._id);
+  const deleteClass = (classData) => {
+    const updatedClasses = selectedClasses.filter(
+      (singleData) => singleData._id !== classData._id
+    );
 
     fetch(`http://localhost:5000/deleteClass/${user.email}`, {
       method: 'PUT',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
       },
-      body: JSON.stringify({ addedClasses: updatedClasses })
+      body: JSON.stringify({ addedClasses: updatedClasses }),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data);
         setSelectedClasses(updatedClasses); // Update the state after successful deletion
-        setSuccessfulPayments(prevPayments => [...prevPayments, classData._id]); // Update successful payments state
+        setSuccessfulPayments((prevPayments) => [...prevPayments, classData._id]); // Update successful payments state
         // Swal.fire('Deleted!', 'The class has been removed.', 'success');
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         Swal.fire('Error', 'An error occurred while deleting the class.', 'error');
       });
-  }
+  };
+
+  const handlePaymentSuccess = (classData) => {
+    deleteClass(classData);
+  };
 
   useEffect(() => {
     fetch(`http://localhost:5000/currentUser/${user?.email}`)
@@ -64,8 +69,9 @@ const MySelectedClass = () => {
             </tr>
           </thead>
           <tbody>
-            {selectedClasses.map((classData, index) => (
-              !classData.paid && !successfulPayments.includes(classData._id) && (
+            {selectedClasses.map((classData, index) =>
+              !classData.paid &&
+              !successfulPayments.includes(classData._id) && (
                 <tr key={classData._id} className="text-center">
                   <td>{index + 1}</td>
                   <td className="flex justify-center">
@@ -78,7 +84,10 @@ const MySelectedClass = () => {
                   <td>{classData.availableSeats}</td>
                   <td>${classData.price}</td>
                   <td>
-                    <button onClick={() => deleteClass(classData)} className="btn btn-primary">
+                    <button
+                      onClick={() => deleteClass(classData)}
+                      className="btn btn-primary"
+                    >
                       Delete
                     </button>
                   </td>
@@ -96,12 +105,16 @@ const MySelectedClass = () => {
 
                           <div className="">
                             <Elements stripe={stripePromise}>
-                              <CheckoutFrom classData={classData} price={classData.price} onSuccess={() => deleteClass(classData)} />
+                              <CheckoutFrom
+                                classData={classData}
+                                price={classData.price}
+                                onSuccess={() => handlePaymentSuccess(classData)}
+                              />
                             </Elements>
                           </div>
                         </div>
                         <div className="modal-action">
-                          <label htmlFor={classData._id} className="btn" >
+                          <label htmlFor={classData._id} className="btn">
                             Done
                           </label>
                         </div>
@@ -110,7 +123,7 @@ const MySelectedClass = () => {
                   </td>
                 </tr>
               )
-            ))}
+            )}
           </tbody>
         </table>
       </div>

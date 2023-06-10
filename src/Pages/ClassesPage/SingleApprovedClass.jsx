@@ -3,8 +3,6 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
-  
-
 const SingleApprovedClass = ({ approvedClass, index }) => {
   const { image, className, instructorName, availableSeats, price } = approvedClass;
   const [data, setData] = useState(null);
@@ -69,9 +67,11 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
     return <div>Loading...</div>;
   }
 
+  const isButtonDisabled = availableSeats === 0 || isClassSelected || data?.role === 'admin' || data?.role === 'instructor';
+
   return (
     <div>
-      <div className="card w-96 bg-orange-400 h-[50vh] shadow-xl font-nunito text-white">
+      <div className={`card w-96 ${availableSeats === 0 ? 'bg-red-500' : 'bg-orange-400'} h-[50vh] shadow-xl font-nunito text-white`}>
         <figure className="px-10 pt-10">
           <img src={image} alt="Shoes" className="rounded-xl" />
         </figure>
@@ -79,20 +79,12 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
           <h2 className="card-title">{className}</h2>
           <p className="font-semibold">Name: {instructorName}</p>
           <p className="font-semibold">Seats available: {availableSeats}</p>
-          <p className="font-semibold">price: ${price}</p>
+          <p className="font-semibold">Price: ${price}</p>
           <div className="card-actions">
             <button
               onClick={() => handleAppliedClasses(user?.email, user)}
-              disabled={
-                isClassSelected ||
-                data?.role === 'admin' ||
-                data?.role === 'instructor' ||
-                approvedClass.seats === '0' ||
-                (data?.addedClasses && data?.addedClasses.find((Class) => Class._id === approvedClass._id))
-              }
-              className={`btn btn-primary ${
-                approvedClass.seats === '0' && 'disabled'
-              } ${user?.role === 'admin' ? 'disabled' : user?.role === 'instructor' && 'disabled'}`}
+              disabled={isButtonDisabled}
+              className={`btn btn-primary ${isButtonDisabled ? 'disabled' : ''}`}
             >
               {isClassSelected ? 'Already Selected' : 'Select Class'}
             </button>

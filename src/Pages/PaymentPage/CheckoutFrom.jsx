@@ -1,4 +1,3 @@
-// CheckoutFrom.js
 import { useState, useEffect } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
@@ -16,11 +15,10 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
   const [transactionId, setTransactionId] = useState('');
 
   useEffect(() => {
-    axiosSecure.post('/create-payment-intent', { price })
-      .then(res => {
-        console.log(res.data.clientSecret);
-        setClientSecret(res.data.clientSecret);
-      });
+    axiosSecure.post('/create-payment-intent', { price }).then((res) => {
+      console.log(res.data.clientSecret);
+      setClientSecret(res.data.clientSecret);
+    });
   }, [price, axiosSecure]);
 
   const handleSubmit = async (event) => {
@@ -37,7 +35,7 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
-      card
+      card,
     });
 
     if (error) {
@@ -54,7 +52,7 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
         card: card,
         billing_details: {
           email: user?.email || 'anonymous',
-          name: user?.displayName || 'anonymous'
+          name: user?.displayName || 'anonymous',
         },
       },
     });
@@ -72,7 +70,7 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
       // Saving payment info to server
       const paymentHistory = {
         classData,
-        transactionId: paymentIntent.id
+        transactionId: paymentIntent.id,
       };
 
       fetch(`http://localhost:5000/managePayment/${user.email}`, {
@@ -92,14 +90,36 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
             icon: 'success',
             confirmButtonText: 'OK',
           });
+
+          // Update class information
+          const updateData = {
+            price: classData.price,
+            availableSeats: classData.availableSeats - 1,
+          };
+
+          fetch(`http://localhost:5000/update/${classData._id}`, {
+            method: 'PUT',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify(updateData),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              console.log(result);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
         });
     }
   };
 
   return (
     <>
-      <form className=' p-6 rounded-lg bg-orange-400' onSubmit={handleSubmit}>
-        <CardElement className='bg-white px-2 rounded-lg'
+      <form className="p-6 rounded-lg bg-orange-400" onSubmit={handleSubmit}>
+        <CardElement
+          className="bg-white px-2 rounded-lg"
           options={{
             style: {
               base: {
@@ -115,14 +135,20 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
             },
           }}
         />
-        <div className='text-center mt-4'>
-          <button className='btn btn-group' type="submit" disabled={!stripe || !clientSecret || processing}>
+        <div className="text-center mt-4">
+          <button className="btn btn-group" type="submit" disabled={!stripe || !clientSecret || processing}>
             Pay
           </button>
         </div>
       </form>
-      {cardError && <p className='text-red-600 text-center text-xl font-nunito font-semibold mt-2'>{cardError}</p>}
-      {transactionId && <p className='text-green-600 text-center text-xl font-nunito font-semibold mt-2'>Transaction completed with transactionId: {transactionId}</p>}
+      {cardError && (
+        <p className="text-red-600 text-center text-xl font-nunito font-semibold mt-2">{cardError}</p>
+      )}
+      {transactionId && (
+        <p className="text-green-600 text-center text-xl font-nunito font-semibold mt-2">
+          Transaction completed with transactionId: {transactionId}
+        </p>
+      )}
     </>
   );
 };
