@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../Auth/AuthProvider/AuthProvider';
+import { FaUsersCog, FaChalkboard, FaHome, FaUserTie } from "react-icons/fa";
+
 
 
 const Dashboard = () => {
@@ -37,8 +39,8 @@ const Dashboard = () => {
                         users?.role == 'admin' &&
 
                         <>
-                            <li><Link to='/dashboard/manageclasses'>Manage Classes</Link></li>
-                            <li><Link to='/dashboard/manageusers'>Manage Users</Link></li>
+                            <li><Link to='/dashboard/manageclasses'><FaChalkboard></FaChalkboard>Manage Classes</Link></li>
+                            <li><Link to='/dashboard/manageusers'><FaUsersCog></FaUsersCog>Manage Users</Link></li>
                         </>
                         
 
@@ -68,9 +70,9 @@ const Dashboard = () => {
 
 
                     <div className='divider my-3'></div>
-                    <li><Link to='/'>Home</Link></li>
-                    <li><Link to='/instructors'>Instructors</Link></li>
-                    <li><Link to='/classes'>Classes</Link></li>
+                    <li><Link to='/'><FaHome></FaHome>Home</Link></li>
+                    <li><Link to='/instructors'><FaUserTie></FaUserTie>Instructors</Link></li>
+                    <li><Link to='/classes'><FaChalkboard></FaChalkboard>Classes</Link></li>
                    
 
                 </ul>
