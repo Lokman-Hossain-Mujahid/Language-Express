@@ -1,7 +1,7 @@
 import React from 'react';
 import PageTItle from '../../Shared/PageTitle/PageTItle';
 import { useQuery } from '@tanstack/react-query';
-import { Zoom } from 'react-awesome-reveal';
+import { Fade } from 'react-awesome-reveal';
 import { FaDollarSign, FaChair, FaUserAlt } from "react-icons/fa";
 
 const PopularClass = () => {
@@ -20,8 +20,8 @@ const PopularClass = () => {
             <div className='grid md:grid-cols-2'>
                 {
                     approvedClasses.filter(approvedClass => approvedClass.status === 'approved').map((approvedClass, index) =>
-                        <Zoom>
-                            <div key={index} className=" md:flex gap-10 my-4 mx-2 items-center  font-bebas p-2 rounded-lg bg-orange-400">
+                        <Fade key={index}>
+                            <div  className=" md:flex gap-10 my-4 mx-2 items-center  font-bebas p-2 rounded-lg bg-orange-400">
                                 <div>
                                     <img className='h-[30vh] mx-auto rounded-lg' src={approvedClass.image} alt="" />
                                 </div>
@@ -32,7 +32,7 @@ const PopularClass = () => {
                                     <h2 className=' text-3xl flex items-center  my-3'><span className='text-2xl'><FaUserAlt></FaUserAlt></span>Students: {approvedClass.enrolledStudents}</h2>
                                 </div>
                             </div>
-                        </Zoom>
+                        </Fade>
                     )
                 }
             </div>
