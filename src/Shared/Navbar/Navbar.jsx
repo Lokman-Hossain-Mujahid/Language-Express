@@ -41,7 +41,7 @@ const Navbar = () => {
     return (
 
         <div className=''>
-                    <div className="navbar bg-orange-400 text-2xl  md:text-3xl ">
+                    <div className="navbar bg-orange-400 text-1xl  md:text-3xl">
                         <div className="navbar-start">
                             <div className="dropdown">
                                 <label tabIndex={0} className="pt-1 btn btn-ghost lg:hidden">
@@ -56,10 +56,10 @@ const Navbar = () => {
                             </div>
                             <div className='flex items-center'>
                                 <div>
-                                    <img className='w-20 pt-3' src="/images/logo.png" alt="" />
+                                    <Link to="/"><img className='md:w-20 pt-3' src="/images/logo.png" alt="" /></Link>
                                 </div>
                                 <div>
-                                    <Link to="/" className="normal-case text-lg md:text-3xl font-semibold italic text-white">LanguageExpress</Link>
+                                    <Link to="/" className="normal-case text-sm md:text-3xl font-semibold italic text-white">LanguageExpress</Link>
                                 </div>
                             </div>
                         </div>

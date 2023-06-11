@@ -25,11 +25,12 @@ const Dashboard = () => {
         <div className="drawer lg:drawer-open">
 
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center overflow-x-scroll w-[100%]">
+            <div className="drawer-content flex flex-col justify-center overflow-x-scroll w-[100%]">
+            <label htmlFor="my-drawer-2" className=" mt-4 md:mt-0 btn btn-primary drawer-button lg:hidden">Open Sidebar</label>
                 <div className=''>
                     <Outlet></Outlet>
                 </div>
-                <label htmlFor="my-drawer-2" className=" mt-4 md:mt-0 btn btn-primary drawer-button lg:hidden">Open Sidebar</label>
+                
 
             </div>
             <div className="drawer-side absolute top-0 z-[69696969696]">

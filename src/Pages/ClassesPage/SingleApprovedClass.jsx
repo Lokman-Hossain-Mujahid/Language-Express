@@ -3,11 +3,14 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
+  
+
 const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
   const { image, className, instructorName, availableSeats, price, _id } = approvedClass;
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isClassSelected, setIsClassSelected] = useState(false);
+  
 
   const navigate = useNavigate();
 
@@ -22,8 +25,11 @@ const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
           setIsLoading(false);
           console.log(data[0]);
         });
+    } else {
+      setIsLoading(false); // Stop loading if user is not logged in
     }
   }, [loading, user, added]);
+  
 
   useEffect(() => {
     if (data) {
@@ -71,7 +77,7 @@ const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
     return <div>Loading...</div>;
   }
 
-  const isButtonDisabled = availableSeats === 0 || data?.role === 'admin' || data?.role === 'instructor' || data?.addedClasses?.find(Class => Class._id == _id);
+  
 
   return (
     <div>
@@ -85,13 +91,6 @@ const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
           <p className="font-semibold">Seats available: {availableSeats}</p>
           <p className="font-semibold">Price: ${price}</p>
           <div className="card-actions">
-            {/* <button
-              onClick={() => handleAppliedClasses(user?.email, user)}
-              disabled={availableSeats === 0 ? true : data?.role === 'admin' ? true : data?.role === 'instructor' ? true : data?.addedClasses?.find(Class => Class._id == _id)? true : false}
-              className={`btn btn-primary ${isButtonDisabled ? 'disabled' : ''}`}
-            >
-              { data?.addedClasses?.find(Class => Class._id == _id) ? 'Already Selected' : 'Select Class'}
-            </button> */}
             <button onClick={() => handleAppliedClasses(user?.email, user)} disabled={data?.role == 'admin' ? true : data?.role == 'instructor' ? true : availableSeats == '0' ? true : data?.addedClasses?.find(Class => Class._id == _id) ? true : false} className={`btn btn-primary ${availableSeats == '0' && 'disabled'} ${user?.role == 'admin' ? 'disabled' : user?.role == 'instructor' && 'disabled'}`}>{data?.addedClasses?.find(Class => Class._id == _id) ? 'already Added' : 'Add to list'}</button>
           </div>
         </div>

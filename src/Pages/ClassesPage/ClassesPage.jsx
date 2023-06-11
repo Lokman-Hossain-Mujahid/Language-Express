@@ -4,20 +4,12 @@ import SingleApprovedClass from './SingleApprovedClass';
 import PageTItle from '../../Shared/PageTitle/PageTItle';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 
-    
+    // Changing
 
 const ClassesPage = () => {
     const [added, setAdded] = useState()
     const {user, loading} = useContext(AuthContext)
     const [approvedClasses, setApproveClasses] = useState([])
-
-    // const { data: approvedClasses = [], refetch } = useQuery(
-    //     ['approvedClasses'],
-    //     async () => {
-    //         const res = await fetch('http://localhost:5000/classes');
-    //         return res.json();
-    //     }
-    // );
 
         useEffect(() => {
             fetch('http://localhost:5000/classes')
@@ -33,7 +25,7 @@ const ClassesPage = () => {
     return (
         <div>
             <PageTItle title={"All Available Classes"}></PageTItle>
-            <div className='grid md:grid-cols-3 max-w-7xl mx-auto gap-10 md:my-6'>
+            <div className='grid md:grid-cols-3 max-w-7xl mx-auto gap-10 mb-2 md:my-6'>
             
 
             {

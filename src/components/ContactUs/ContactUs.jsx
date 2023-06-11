@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import contact from "../../contact.json";
@@ -8,11 +8,15 @@ import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 
 const ContactUs = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const [isSending, setIsSending] = useState(false);
   const {user} = useContext(AuthContext)
 
   const onSubmit = (data) => {
+    setIsSending(true);
+
     // Simulating an API call or any asynchronous operation
     setTimeout(() => {
+      setIsSending(false);
       Swal.fire({
         icon: 'success',
         title: 'Message Sent!',
@@ -23,9 +27,9 @@ const ContactUs = () => {
   };
 
   return (
-    <div className=''>
+    <div>
       <PageTItle title={"Contact Us"}></PageTItle>
-      <div className="py-28 lg:flex md:justify-evenly">
+      <div className=" py-28 md:flex justify-evenly">
         <div className="hero-content flex-col lg:flex-row-reverse font-nunito">
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Contact Us</h1>
@@ -41,8 +45,8 @@ const ContactUs = () => {
                   <input
                     type="text"
                     placeholder="Enter your name"
-                    className="input input-bordered"
                     defaultValue={user?.displayName}
+                    className="input input-bordered"
                     {...register("name", { required: true })}
                   />
                   {errors.name && <span className="text-xs text-red-500">Please enter your name</span>}
@@ -54,8 +58,8 @@ const ContactUs = () => {
                   <input
                     type="text"
                     placeholder="Enter your email"
-                    className="input input-bordered"
                     defaultValue={user?.email}
+                    className="input input-bordered"
                     {...register("email", { required: true })}
                   />
                   {errors.email && <span className="text-xs text-red-500">Please enter your email</span>}
@@ -72,8 +76,8 @@ const ContactUs = () => {
                   {errors.message && <span className="text-xs text-red-500">Please enter your message</span>}
                 </div>
                 <div className="form-control mt-6">
-                  <button className="btn btn-primary" type="submit">
-                    Send Message
+                  <button className="btn btn-primary" type="submit" disabled={isSending}>
+                    {isSending ? 'Sending...' : 'Send Message'}
                   </button>
                 </div>
               </form>
