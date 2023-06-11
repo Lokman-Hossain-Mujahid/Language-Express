@@ -101,7 +101,7 @@ const MySelectedClass = () => {
                     </button>
                   </td>
                   <td>
-                    <label disabled={enroll.find(room => room?.classData?._id == classData?._id)} htmlFor={classData._id} className="btn">
+                    <label disabled={enroll?.find(room => room?.classData?._id == classData?._id)} htmlFor={classData._id} className="btn">
                       Pay
                     </label>
                     <input type="checkbox" id={classData._id} className="modal-toggle" />
