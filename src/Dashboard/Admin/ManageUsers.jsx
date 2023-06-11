@@ -67,7 +67,7 @@ const ManageUsers = () => {
           </thead>
           <tbody>
             {users
-              .filter((user) => user.email !== 'rclash163@gmail.com')
+              .filter((user) => user.email !== 'rclash163@gmail.com' && user.email !== 'admin@gmail.com')
               .map((user, index) => (
                 <tr key={index}>
                   <th>{index + 1}</th>

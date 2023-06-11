@@ -2,6 +2,7 @@ import React from 'react';
 import PageTItle from '../../Shared/PageTitle/PageTItle';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import { Zoom } from 'react-awesome-reveal';
 
 
 const PopularInstructors = () => {
@@ -19,18 +20,20 @@ const PopularInstructors = () => {
 
                 {
                     instructors.filter(instructor => instructor.role == 'instructor').slice(0, 6).map((instructor, index) =>
-                        <div key={index} className=" md:flex gap-10 my-4 mx-2 items-center bg-base-200 font-bebas p-2 rounded-lg bg-orange-400">
-                            <div>
-                                <img className='h-[30vh] rounded-lg' src={instructor.photoURL} alt="" />
+                        <Zoom>
+                            <div key={index} className=" md:flex gap-10 my-4 mx-2 items-center  font-bebas p-2 rounded-lg bg-orange-400">
+                                <div>
+                                    <img className='h-[30vh] rounded-lg' src={instructor.photoURL} alt="" />
+                                </div>
+                                <div>
+                                    <h2 className='text-4xl '>Name: {instructor.name}</h2>
+                                    <h2 className='text-4xl  my-3'>Email: {instructor.email}</h2>
+                                    <Link to="/classes"><div className='btn btn-primary text-3xl font-normal'>
+                                        Join Classes
+                                    </div></Link>
+                                </div>
                             </div>
-                            <div>
-                                <h2 className='text-4xl '>Name: {instructor.name}</h2>
-                                <h2 className='text-4xl  my-3'>Email: {instructor.email}</h2>
-                                <Link to="/classes"><div className='btn btn-primary text-3xl font-normal'>
-                                    Join Classes
-                                </div></Link>
-                            </div>
-                        </div>
+                        </Zoom>
                     )
                 }
 
