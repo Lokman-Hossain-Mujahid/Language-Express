@@ -91,7 +91,7 @@ const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
           <p className="font-semibold">Seats available: {availableSeats}</p>
           <p className="font-semibold">Price: ${price}</p>
           <div className="card-actions">
-            <button onClick={() => handleAppliedClasses(user?.email, user)} disabled={data?.role == 'admin' ? true : data?.role == 'instructor' ? true : availableSeats == '0' ? true : data?.addedClasses?.find(Class => Class._id == _id) ? true : data?.paymentHistory.find(en => en.classData._id == _id)? true : false} className={`btn btn-primary ${availableSeats == '0' && 'disabled'} ${user?.role == 'admin' ? 'disabled' : user?.role == 'instructor' && 'disabled'}`}>{data?.addedClasses?.find(Class => Class._id == _id) ? 'Already Added' : data?.paymentHistory.find(en => en.classData._id == _id) ? "Already Enrolled" : "Select Class"}</button>
+            <button onClick={() => handleAppliedClasses(user?.email, user)} disabled={data?.role == 'admin' ? true : data?.role == 'instructor' ? true : availableSeats == '0' ? true : data?.addedClasses?.find(Class => Class._id == _id) ? true : data?.paymentHistory?.find(en => en.classData._id == _id)? true : false} className={`btn btn-primary ${availableSeats == '0' && 'disabled'} ${user?.role == 'admin' ? 'disabled' : user?.role == 'instructor' && 'disabled'}`}>{data?.addedClasses?.find(Class => Class._id == _id) ? 'Already Added' : data?.paymentHistory?.find(en => en.classData._id == _id) ? "Already Enrolled" : "Select Class"}</button>
           </div>
         </div>
       </div>
