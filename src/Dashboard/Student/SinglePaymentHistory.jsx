@@ -6,7 +6,7 @@ const SinglePaymentHistory = ({ singleClassHistory, student, index }) => {
 
     const { user } = useContext(AuthContext)
 
-    const { className, availableSeats, price, image, instructorName } = singleClassHistory
+    
 
 
     console.log(singleClassHistory);
@@ -25,8 +25,8 @@ const SinglePaymentHistory = ({ singleClassHistory, student, index }) => {
                 {student?.name}
             </td>
             <td>{student?.email}</td>
-            <td>{className}</td>
-            <td>${price}</td>
+            <td>{singleClassHistory?.className}</td>
+            <td>${singleClassHistory?.price}</td>
             
         </tr>
     );

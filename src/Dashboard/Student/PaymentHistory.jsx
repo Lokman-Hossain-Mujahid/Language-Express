@@ -13,7 +13,7 @@ const PaymentHistory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/currentUser/${user?.email}`);
+        const response = await fetch(`https://language-express-server.vercel.app/currentUser/${user?.email}`);
         const data = await response.json();
         const sortedClassHistory = data[0]?.paymentHistory || [];
         sortedClassHistory.reverse(); // Reverse the array to show the latest payment first

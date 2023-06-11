@@ -14,7 +14,7 @@ const ManageClasses = () => {
     const id = addClass._id;
     console.log(feedBack);
 
-    fetch(`http://localhost:5000/feedback/${id}`, {
+    fetch(`https://language-express-server.vercel.app/feedback/${id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -43,7 +43,7 @@ const ManageClasses = () => {
   };
 
   const handleApprove = (addClass) => {
-    fetch(`http://localhost:5000/classes/${addClass._id}`, {
+    fetch(`https://language-express-server.vercel.app/classes/${addClass._id}`, {
       method: 'PUT',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ status: 'approved' }),
@@ -65,7 +65,7 @@ const ManageClasses = () => {
   };
 
   const handleDeny = (addClass) => {
-    fetch(`http://localhost:5000/classes/${addClass._id}`, {
+    fetch(`https://language-express-server.vercel.app/classes/${addClass._id}`, {
       method: 'PUT',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ status: 'denied' }),
@@ -89,7 +89,7 @@ const ManageClasses = () => {
   const { data: addedClasses = [], refetch } = useQuery(
     ['addedClasses'],
     async () => {
-      const res = await fetch('http://localhost:5000/classes');
+      const res = await fetch('https://language-express-server.vercel.app/classes');
       return res.json();
     }
   );

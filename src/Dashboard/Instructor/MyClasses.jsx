@@ -17,7 +17,7 @@ const MyClasses = () => {
     useEffect(() => {
 
         if (!loading) {
-            fetch(`http://localhost:5000/classes/${user.email}`)
+            fetch(`https://language-express-server.vercel.app/classes/${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setClasses(data)

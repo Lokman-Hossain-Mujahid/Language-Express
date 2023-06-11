@@ -8,7 +8,7 @@ import { Zoom } from 'react-awesome-reveal';
 const PopularInstructors = () => {
 
     const { data: instructors = [], refetch } = useQuery(['instructors'], async () => {
-        const res = await fetch('http://localhost:5000/users');
+        const res = await fetch('https://language-express-server.vercel.app/users');
         return res.json();
     });
 

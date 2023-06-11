@@ -12,7 +12,7 @@ const ClassesPage = () => {
     const [approvedClasses, setApproveClasses] = useState([])
 
         useEffect(() => {
-            fetch('http://localhost:5000/classes')
+            fetch('https://language-express-server.vercel.app/classes')
             .then(res => res.json())
             .then(data => 
                 

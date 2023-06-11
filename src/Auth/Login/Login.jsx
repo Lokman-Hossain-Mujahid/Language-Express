@@ -53,7 +53,7 @@ const Login = () => {
 
         const userData = { name: user.displayName, email: user.email, photoURL: user.photoURL, role: 'student' }
 
-        fetch('http://localhost:5000/users', {
+        fetch('https://language-express-server.vercel.app/users', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify(userData)

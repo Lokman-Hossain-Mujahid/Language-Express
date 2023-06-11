@@ -17,13 +17,14 @@ const MySelectedClass = () => {
   const { user, loading } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [successfulPayments, setSuccessfulPayments] = useState([]);
+  const [ enroll, setEnroll] = useState()
 
   const deleteClass = (classData) => {
     const updatedClasses = selectedClasses.filter(
       (singleData) => singleData._id !== classData._id
     );
 
-    fetch(`http://localhost:5000/deleteClass/${user.email}`, {
+    fetch(`https://language-express-server.vercel.app/deleteClass/${user.email}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -51,10 +52,11 @@ const MySelectedClass = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/currentUser/${user?.email}`)
+    fetch(`https://language-express-server.vercel.app/currentUser/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setSelectedClasses(data[0]?.addedClasses || []);
+        setEnroll(data[0]?.paymentHistory)
       });
   }, [loading, user]);
 
@@ -99,7 +101,7 @@ const MySelectedClass = () => {
                     </button>
                   </td>
                   <td>
-                    <label htmlFor={classData._id} className="btn">
+                    <label disabled={enroll.find(room => room?.classData?._id == classData?._id)} htmlFor={classData._id} className="btn">
                       Pay
                     </label>
                     <input type="checkbox" id={classData._id} className="modal-toggle" />
@@ -113,6 +115,7 @@ const MySelectedClass = () => {
                           <div className="">
                             <Elements stripe={stripePromise}>
                               <CheckoutFrom
+                                enroll = {enroll}
                                 classData={classData}
                                 price={classData.price}
                                 onSuccess={() => handlePaymentSuccess(classData)}

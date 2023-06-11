@@ -5,9 +5,10 @@ import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { stringify } from 'postcss';
 
-  
 
-const CheckoutFrom = ({ price, classData, onSuccess }) => {
+
+const CheckoutFrom = ({ price, classData, onSuccess, enroll }) => {
+  console.log(enroll);
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();
@@ -16,6 +17,8 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
   const [clientSecret, setClientSecret] = useState('');
   const [processing, setProcessing] = useState(false);
   const [transactionId, setTransactionId] = useState('');
+  const [paid, setPaid] = useState()
+
 
   useEffect(() => {
     axiosSecure.post('/create-payment-intent', { price }).then((res) => {
@@ -25,6 +28,9 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
   }, [price, axiosSecure]);
 
   const handleSubmit = async (event) => {
+
+
+
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -76,7 +82,7 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
         transactionId: paymentIntent.id,
       };
 
-      fetch(`http://localhost:5000/managePayment/${user.email}`, {
+      fetch(`https://language-express-server.vercel.app/managePayment/${user.email}`, {
         method: 'PUT',
         headers: {
           'content-type': 'application/json',
@@ -93,8 +99,9 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
             icon: 'success',
             confirmButtonText: 'OK',
           });
+          setPaid(true)
 
-          
+
 
           // Update class information
 
@@ -104,10 +111,10 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
           const updateData = {
             price: classData.price,
             availableSeats: seats - 1,
-            enrolledStudents: enrolled + 1 ,
+            enrolledStudents: enrolled + 1,
           };
 
-          fetch(`http://localhost:5000/updateSeat/${classData._id}`, {
+          fetch(`https://language-express-server.vercel.app/updateSeat/${classData._id}`, {
             method: 'PUT',
             headers: {
               'content-type': 'application/json',
@@ -146,7 +153,7 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
           }}
         />
         <div className="text-center mt-4">
-          <button className="btn btn-group" type="submit" disabled={!stripe || !clientSecret || processing}>
+          <button className="btn btn-group" type="submit" disabled={!stripe || !clientSecret || processing }>
             Pay
           </button>
         </div>

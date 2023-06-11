@@ -18,7 +18,7 @@ const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
 
   useEffect(() => {
     if (user && !loading) {
-      fetch(`http://localhost:5000/currentUser/${user?.email}`)
+      fetch(`https://language-express-server.vercel.app/currentUser/${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
           setData(data[0]);
@@ -44,7 +44,7 @@ const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
       return;
     }
 
-    fetch(`http://localhost:5000/manageUserAddClass/${email}`, {
+    fetch(`https://language-express-server.vercel.app/manageUserAddClass/${email}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -56,7 +56,7 @@ const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
         console.log(result);
         setIsClassSelected(true);
 
-        fetch(`http://localhost:5000/updateSelectedClasses/${email}`, {
+        fetch(`https://language-express-server.vercel.app/updateSelectedClasses/${email}`, {
           method: 'PUT',
           headers: {
             'content-type': 'application/json',
@@ -91,7 +91,7 @@ const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
           <p className="font-semibold">Seats available: {availableSeats}</p>
           <p className="font-semibold">Price: ${price}</p>
           <div className="card-actions">
-            <button onClick={() => handleAppliedClasses(user?.email, user)} disabled={data?.role == 'admin' ? true : data?.role == 'instructor' ? true : availableSeats == '0' ? true : data?.addedClasses?.find(Class => Class._id == _id) ? true : false} className={`btn btn-primary ${availableSeats == '0' && 'disabled'} ${user?.role == 'admin' ? 'disabled' : user?.role == 'instructor' && 'disabled'}`}>{data?.addedClasses?.find(Class => Class._id == _id) ? 'already Added' : 'Add to list'}</button>
+            <button onClick={() => handleAppliedClasses(user?.email, user)} disabled={data?.role == 'admin' ? true : data?.role == 'instructor' ? true : availableSeats == '0' ? true : data?.addedClasses?.find(Class => Class._id == _id) ? true : data?.paymentHistory.find(en => en.classData._id == _id)? true : false} className={`btn btn-primary ${availableSeats == '0' && 'disabled'} ${user?.role == 'admin' ? 'disabled' : user?.role == 'instructor' && 'disabled'}`}>{data?.addedClasses?.find(Class => Class._id == _id) ? 'Already Added' : data?.paymentHistory.find(en => en.classData._id == _id) ? "Already Enrolled" : "Select Class"}</button>
           </div>
         </div>
       </div>

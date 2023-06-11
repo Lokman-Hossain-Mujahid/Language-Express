@@ -10,7 +10,7 @@ const MyEnrolledClass = () => {
     const [enrolledClasses, setEnrolledClasses] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/currentUser/${user?.email}`)
+        fetch(`https://language-express-server.vercel.app/currentUser/${user?.email}`)
             .then((res) => res.json())
             .then((data) => {
                 setEnrolledClasses(data[0]?.paymentHistory || []);

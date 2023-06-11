@@ -14,7 +14,7 @@ const MySingleSelectedClass = ({ classData, index, selectedClasses }) => {
         const newData= data.filter(singleData=>singleData._id!=Class._id)
         console.log (newData)
 
-        fetch(`http://localhost:5000/deleteClass/${user.email}`,{
+        fetch(`https://language-express-server.vercel.app/deleteClass/${user.email}`,{
             method:'PUT',
             headers:{
                 'content-type':'application/json'

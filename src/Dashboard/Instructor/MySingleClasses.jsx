@@ -13,7 +13,7 @@ const MySingleClasses = ({ singleClass, index, setUpdated }) => {
     const availableSeats = form.availableSeats.value;
     const id = form.id.value;
 
-    fetch(`http://localhost:5000/update/${id}`, {
+    fetch(`https://language-express-server.vercel.app/update/${id}`, {
       method: 'PUT',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ price: price, availableSeats: availableSeats })

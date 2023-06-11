@@ -12,7 +12,7 @@ const Dashboard = () => {
     const { user, loading } = useContext(AuthContext)
 
     useEffect(() => {
-        fetch(`http://localhost:5000/currentuser/${user?.email}`)
+        fetch(`https://language-express-server.vercel.app/currentuser/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 // console.log(data[0].role);

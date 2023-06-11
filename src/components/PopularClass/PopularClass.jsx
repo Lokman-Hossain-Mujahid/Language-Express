@@ -9,7 +9,7 @@ const PopularClass = () => {
     const { data: approvedClasses = [], refetch } = useQuery(
         ['approvedClasses'],
         async () => {
-            const res = await fetch('http://localhost:5000/popularClasses');
+            const res = await fetch('https://language-express-server.vercel.app/popularClasses');
             return res.json();
         }
     );
