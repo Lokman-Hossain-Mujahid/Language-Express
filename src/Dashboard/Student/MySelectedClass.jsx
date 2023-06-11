@@ -10,7 +10,7 @@ import PageTItle from '../../Shared/PageTitle/PageTItle';
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
-  
+  // 
 
 const MySelectedClass = () => {
   const [selectedClasses, setSelectedClasses] = useState([]);
@@ -41,6 +41,9 @@ const MySelectedClass = () => {
         console.error(error);
         Swal.fire('Error', 'An error occurred while deleting the class.', 'error');
       });
+
+      console.log(updatedClasses);
+
   };
 
   const handlePaymentSuccess = (classData) => {

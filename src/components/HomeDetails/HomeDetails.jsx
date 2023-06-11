@@ -2,6 +2,7 @@ import React from 'react';
 import HomeBanner from '../HomeBanner/HomeBanner';
 import PopularInstructors from '../PopularInstructors/PopularInstructors';
 import PopularClass from '../PopularClass/PopularClass';
+import ContactUs from '../ContactUs/ContactUs';
 
 const HomeDetails = () => {
     return (
@@ -14,6 +15,9 @@ const HomeDetails = () => {
             </div>
             <div>
                 <PopularInstructors></PopularInstructors>
+            </div>
+            <div className='md:h-[80vh]'>
+                <ContactUs></ContactUs>
             </div>
         </div>
     );

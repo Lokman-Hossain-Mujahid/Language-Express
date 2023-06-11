@@ -6,6 +6,10 @@ const MySingleEnrolledClass = ({ enrolledClass, index }) => {
 
     return (
         <tr className='text-center'>
+            <td className='lg:hidden'></td>
+            <td className='lg:hidden'></td>
+            <td className='lg:hidden'></td>
+            <td className='lg:hidden'></td>
             <td>{index + 1}</td>
             <td className="flex justify-center">
                 <div className="mask mask-squircle w-12 h-12">

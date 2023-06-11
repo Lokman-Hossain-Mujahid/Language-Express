@@ -6,10 +6,7 @@
 
 LanguageExpress is a website where students can come and join various language classes as they please. The website provides a platform for students to select classes, make payments, enroll, and manage their classes. Instructors have the power to add classes, and the admin has control over user roles, class approval, and feedback.
 
-# Super Admin ID
 
-- mail: admin@gmail.com
-- pass: @Admin4
 
 ## Features
 

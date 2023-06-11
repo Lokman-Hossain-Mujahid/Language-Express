@@ -7,7 +7,7 @@ const HomePage = () => {
     return (
         <div className=''>
             <Navbar></Navbar>
-            <div  className=''>
+            <div  className='min-h-[740px]'>
                 <Outlet></Outlet>
             </div>
             <div className=''>

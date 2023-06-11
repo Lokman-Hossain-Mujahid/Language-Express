@@ -3,6 +3,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
+import { stringify } from 'postcss';
 
   
 
@@ -93,13 +94,20 @@ const CheckoutFrom = ({ price, classData, onSuccess }) => {
             confirmButtonText: 'OK',
           });
 
+          
+
           // Update class information
+
+          const seats = parseInt(classData.availableSeats)
+          const enrolled = parseInt(classData.enrolledStudents)
+
           const updateData = {
             price: classData.price,
-            availableSeats: classData.availableSeats - 1,
+            availableSeats: seats - 1,
+            enrolledStudents: enrolled + 1 ,
           };
 
-          fetch(`http://localhost:5000/update/${classData._id}`, {
+          fetch(`http://localhost:5000/updateSeat/${classData._id}`, {
             method: 'PUT',
             headers: {
               'content-type': 'application/json',

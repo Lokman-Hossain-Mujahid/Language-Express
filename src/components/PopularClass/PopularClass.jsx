@@ -9,7 +9,7 @@ const PopularClass = () => {
     const { data: approvedClasses = [], refetch } = useQuery(
         ['approvedClasses'],
         async () => {
-            const res = await fetch('http://localhost:5000/classes');
+            const res = await fetch('http://localhost:5000/popularClasses');
             return res.json();
         }
     );

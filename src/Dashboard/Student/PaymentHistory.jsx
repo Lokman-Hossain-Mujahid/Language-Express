@@ -40,12 +40,19 @@ const PaymentHistory = () => {
         <table className="table table-zebra">
           <thead>
             <tr className='text-center'>
+              <th className='lg:hidden'></th>
+              <th className='lg:hidden'></th>
+              <th className='lg:hidden'></th>
+              <th className='lg:hidden'></th>
+              <th className='lg:hidden'></th>
+              <th className='lg:hidden'></th>
               <th>#</th>
               <th>studentImage</th>
               <th>StudentName</th>
               <th>StudentEmail</th>
               <th>className</th>
               <th>Price</th>
+              
             </tr>
           </thead>
           <tbody>

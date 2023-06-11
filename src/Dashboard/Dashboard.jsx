@@ -25,15 +25,17 @@ const Dashboard = () => {
         <div className="drawer lg:drawer-open">
 
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center">
-                <Outlet></Outlet>
+            <div className="drawer-content flex flex-col items-center justify-center overflow-x-scroll w-[100%]">
+                <div className=''>
+                    <Outlet></Outlet>
+                </div>
                 <label htmlFor="my-drawer-2" className=" mt-4 md:mt-0 btn btn-primary drawer-button lg:hidden">Open Sidebar</label>
 
             </div>
-            <div className="drawer-side">
+            <div className="drawer-side absolute top-0 z-[69696969696]">
 
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content font-nunito">
+                <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content font-nunito ">
                     <div className='text-xl pt-1'>
                         {user?.photoURL ? <img className='h-20 mt-2 mr-2 md:h-28 rounded-full md:mr-0 ml-24 md:mt-0 md:ml-16 cursor-pointer' src={user.photoURL} alt="profile" title={user.displayName}></img>
                             : user ? <img className='h-20 mt-2 mr-2 md:h-28 rounded-full md:mr-0 ml-24 md:mt-0 md:ml-16 cursor-pointer' src='/images/nouser.jpg' title={user.displayName} ></img> : ''}

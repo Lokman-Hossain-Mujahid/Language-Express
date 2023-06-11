@@ -3,23 +3,27 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
-const SingleApprovedClass = ({ approvedClass, index }) => {
-  const { image, className, instructorName, availableSeats, price } = approvedClass;
+const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
+  const { image, className, instructorName, availableSeats, price, _id } = approvedClass;
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isClassSelected, setIsClassSelected] = useState(false);
+
   const navigate = useNavigate();
 
   const { user, loading } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/currentUser/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data[0]);
-        setIsLoading(false);
-      });
-  }, [loading, user]);
+    if (user && !loading) {
+      fetch(`http://localhost:5000/currentUser/${user?.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data[0]);
+          setIsLoading(false);
+          console.log(data[0]);
+        });
+    }
+  }, [loading, user, added]);
 
   useEffect(() => {
     if (data) {
@@ -53,7 +57,7 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
           },
           body: JSON.stringify({ selectedClasses: [approvedClass._id] }),
         });
-
+        setAdded(true)
         Swal.fire({
           title: 'Success',
           text: 'Class added successfully',
@@ -67,7 +71,7 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
     return <div>Loading...</div>;
   }
 
-  const isButtonDisabled = availableSeats === 0 || isClassSelected || data?.role === 'admin' || data?.role === 'instructor';
+  const isButtonDisabled = availableSeats === 0 || data?.role === 'admin' || data?.role === 'instructor' || data?.addedClasses?.find(Class => Class._id == _id);
 
   return (
     <div>
@@ -81,17 +85,18 @@ const SingleApprovedClass = ({ approvedClass, index }) => {
           <p className="font-semibold">Seats available: {availableSeats}</p>
           <p className="font-semibold">Price: ${price}</p>
           <div className="card-actions">
-            <button
+            {/* <button
               onClick={() => handleAppliedClasses(user?.email, user)}
-              disabled={isButtonDisabled}
+              disabled={availableSeats === 0 ? true : data?.role === 'admin' ? true : data?.role === 'instructor' ? true : data?.addedClasses?.find(Class => Class._id == _id)? true : false}
               className={`btn btn-primary ${isButtonDisabled ? 'disabled' : ''}`}
             >
-              {isClassSelected ? 'Already Selected' : 'Select Class'}
-            </button>
+              { data?.addedClasses?.find(Class => Class._id == _id) ? 'Already Selected' : 'Select Class'}
+            </button> */}
+            <button onClick={() => handleAppliedClasses(user?.email, user)} disabled={data?.role == 'admin' ? true : data?.role == 'instructor' ? true : availableSeats == '0' ? true : data?.addedClasses?.find(Class => Class._id == _id) ? true : false} className={`btn btn-primary ${availableSeats == '0' && 'disabled'} ${user?.role == 'admin' ? 'disabled' : user?.role == 'instructor' && 'disabled'}`}>{data?.addedClasses?.find(Class => Class._id == _id) ? 'already Added' : 'Add to list'}</button>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

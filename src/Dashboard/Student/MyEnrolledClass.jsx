@@ -25,6 +25,10 @@ const MyEnrolledClass = () => {
                 <table className="table table-zebra">
                     <thead>
                         <tr className='text-center'>
+                            <th className='lg:hidden'></th>
+                            <th className='lg:hidden'></th>
+                            <th className='lg:hidden'></th>
+                            <th className='lg:hidden'></th>
                             <th>#</th>
                             <th>Image</th>
                             <th>ClassName</th>
