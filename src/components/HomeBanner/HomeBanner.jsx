@@ -16,14 +16,14 @@ import { Zoom } from 'react-awesome-reveal';
 const HomeBanner = () => {
     return (
 
-        <Zoom>
+        <Zoom duration="1500">
             <div className=''>
             <Swiper
                 pagination={{
                     dynamicBullets: true,
                 }}
                 modules={[Pagination]}
-                className="mySwiper h-[23vh] md:h-[78vh]"
+                className="mySwiper absolute -z-10 h-[23vh] md:h-[78vh]"
             >
                 <SwiperSlide className=''><img src={img1} alt="" /></SwiperSlide>
                 <SwiperSlide><img src={img2} alt="" /></SwiperSlide>
