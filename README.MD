@@ -1,13 +1,15 @@
-# Super Admin ID
 
-- mail: admin@gmail.com
-- pass: @Admin4
 
 ![Logo](https://cdn.leonardo.ai/users/6b05b28b-2898-4981-b04a-aedf76061171/generations/70b878a3-6fef-418a-917d-432840be7a6e/variations/Default_Language_Academy_Logo_1_70b878a3-6fef-418a-917d-432840be7a6e_0.png)
 
 # LanguageExpress
 
 LanguageExpress is a website where students can come and join various language classes as they please. The website provides a platform for students to select classes, make payments, enroll, and manage their classes. Instructors have the power to add classes, and the admin has control over user roles, class approval, and feedback.
+
+# Super Admin ID
+
+- mail: admin@gmail.com
+- pass: @Admin4
 
 ## Features
 
