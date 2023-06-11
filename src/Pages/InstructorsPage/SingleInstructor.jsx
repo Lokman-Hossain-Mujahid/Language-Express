@@ -9,7 +9,7 @@ const SingleInstructor = ({ instructor }) => {
         <div className=''>
             <div className="card w-96 bg-orange-400 h-[50vh] font-nunito shadow-xl">
                 <figure className="px-10 pt-10">
-                    <img src={photoURL} alt="Shoes" className="rounded-xl" />
+                    <img src={photoURL} alt="InstructorImage" className="rounded-xl" />
                 </figure>
                 <div className="card-body items-center text-center">
                     <h2 className="card-title">Name: {name}</h2>

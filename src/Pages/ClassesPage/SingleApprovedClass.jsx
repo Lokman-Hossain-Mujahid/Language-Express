@@ -83,7 +83,7 @@ const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
     <div>
       <div className={`card w-96 ${availableSeats === 0 ? 'bg-red-500' : 'bg-orange-400'} h-[50vh] shadow-xl font-nunito text-white`}>
         <figure className="px-10 pt-10">
-          <img src={image} alt="Shoes" className="rounded-xl" />
+          <img src={image} alt="ClassImage" className="rounded-xl" />
         </figure>
         <div className="card-body items-center text-center">
           <h2 className="card-title">{className}</h2>
