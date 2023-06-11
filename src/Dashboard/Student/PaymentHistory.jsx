@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 import SinglePaymentHistory from './SinglePaymentHistory';
+import PageTItle from '../../Shared/PageTitle/PageTItle';
 
 const PaymentHistory = () => {
   const { user, loading } = useContext(AuthContext);
@@ -34,6 +35,7 @@ const PaymentHistory = () => {
 
   return (
     <div className="w-full">
+      <PageTItle title={"Payment History"}></PageTItle>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           <thead>

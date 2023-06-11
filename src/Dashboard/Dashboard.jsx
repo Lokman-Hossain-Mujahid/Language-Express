@@ -38,7 +38,7 @@ const Dashboard = () => {
                     <Link to="/">
                         <div className='text-center mb-6 flex items-center italic'>
                             <div>
-                                <img className='h-14' src="/public/images/logo.png" alt="" />
+                                <img className='h-14' src="/images/logo.png" alt="" />
                             </div>
                             <div>
                                 <h2 className='text-xl font-semibold pb-1 md:pb-0'>LanguageExpress</h2>

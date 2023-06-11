@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutFrom from '../../Pages/PaymentPage/CheckoutFrom';
 import { loadStripe } from '@stripe/stripe-js';
+import PageTItle from '../../Shared/PageTitle/PageTItle';
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
@@ -56,6 +57,7 @@ const MySelectedClass = () => {
 
   return (
     <div className="w-full">
+      <PageTItle title={"My Selected Classes"}></PageTItle>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           <thead>

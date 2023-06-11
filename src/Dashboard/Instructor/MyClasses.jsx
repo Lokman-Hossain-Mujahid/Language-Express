@@ -3,6 +3,7 @@ import useClasses from '../../hooks/useClasses';
 
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 import MySingleClasses from './MySingleClasses';
+import PageTItle from '../../Shared/PageTitle/PageTItle';
 
 const MyClasses = () => {
     //   const [classes] = useClasses();
@@ -30,7 +31,8 @@ const MyClasses = () => {
 
     return (
         <div className='w-full'>
-            <div className='overflow-x-auto'>
+            <div className='overflow-x-scroll'>
+                <PageTItle title={"My Class"}></PageTItle>            
                 <table className='table table-zebra font-nunito'>
                     <thead>
                         <tr className='text-center'>
@@ -44,7 +46,7 @@ const MyClasses = () => {
                     </thead>
                     <tbody>
                         {
-                        classes.map((singleClass, index) => <MySingleClasses key={index} index={index} singleClass={singleClass} setUpdated={setUpdated} ></MySingleClasses>)
+                            classes.map((singleClass, index) => <MySingleClasses key={index} index={index} singleClass={singleClass} setUpdated={setUpdated} ></MySingleClasses>)
                         }
                     </tbody>
                 </table>

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { FaUserShield, FaChalkboardTeacher } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import PageTItle from '../../Shared/PageTitle/PageTItle';
 
 const ManageUsers = () => {
   const { data: users = [], refetch } = useQuery(['users'], async () => {
@@ -51,6 +52,7 @@ const ManageUsers = () => {
 
   return (
     <div className="w-full">
+      <PageTItle title={"Manage Users"}></PageTItle>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           <thead>

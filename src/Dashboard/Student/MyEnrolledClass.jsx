@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 import MySingleEnrolledClass from './MySingleEnrolledClass';
+import PageTItle from '../../Shared/PageTitle/PageTItle';
 
 const MyEnrolledClass = () => {
 
@@ -19,6 +20,7 @@ const MyEnrolledClass = () => {
     return (
 
         <div className="w-full">
+            <PageTItle title={"My Enrolled Classes"}></PageTItle>
             <div className="overflow-x-auto">
                 <table className="table table-zebra">
                     <thead>

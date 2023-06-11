@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useQuery } from '@tanstack/react-query';
+import PageTItle from '../../Shared/PageTitle/PageTItle';
 
 const ManageClasses = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -95,6 +96,7 @@ const ManageClasses = () => {
 
   return (
     <div className="w-full">
+      <PageTItle title={"Manage Classes"}></PageTItle>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           <thead>
