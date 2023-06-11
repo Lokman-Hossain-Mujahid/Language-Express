@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <Slide direction='left' duration="1500">
             <div className=''>
-                <footer className="footer rounded-t-lg p-10 bg-orange-400 text-base-content">
+                <footer className="footer  p-10 bg-orange-400 text-base-content">
                     <div>
                         <span className="footer-title">Services</span>
                         <a className="link link-hover">Branding</a>

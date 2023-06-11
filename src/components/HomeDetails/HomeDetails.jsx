@@ -6,7 +6,7 @@ import PopularClass from '../PopularClass/PopularClass';
 const HomeDetails = () => {
     return (
         <div>
-            <div className=' w-11/12 border-4 border-orange-500 rounded mx-auto mb-6'>
+            <div className=' w-11/12 border-4 border-orange-500 rounded mx-auto mt-2 mb-6'>
                 <HomeBanner></HomeBanner>
             </div>
             <div className='mb-6'>               

@@ -34,17 +34,24 @@ const Dashboard = () => {
 
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content font-nunito">
+                    <div className='text-xl pt-1'>
+                        {user?.photoURL ? <img className='h-20 mt-2 mr-2 md:h-28 rounded-full md:mr-0 ml-24 md:mt-0 md:ml-16 cursor-pointer' src={user.photoURL} alt="profile" title={user.displayName}></img>
+                            : user ? <img className='h-20 mt-2 mr-2 md:h-28 rounded-full md:mr-0 ml-24 md:mt-0 md:ml-16 cursor-pointer' src='/images/nouser.jpg' title={user.displayName} ></img> : ''}
+                    </div>
 
-                    <Link to="/">
-                        <div className='text-center mb-6 flex items-center italic'>
-                            <div>
+                    <div className='text-center mb-4 flex items-center italic'>
+                        <div>
+                            <Link to="/">
                                 <img className='h-14' src="/images/logo.png" alt="" />
-                            </div>
-                            <div>
-                                <h2 className='text-xl font-semibold pb-1 md:pb-0'>LanguageExpress</h2>
-                            </div>
+                            </Link>
                         </div>
-                    </Link>
+                        <div>
+                            <Link to="/">
+                                <h2 className='text-xl font-semibold pb-1 md:pb-0'>LanguageExpress</h2>
+                            </Link>
+                        </div>
+                    </div>
+
 
 
                     {

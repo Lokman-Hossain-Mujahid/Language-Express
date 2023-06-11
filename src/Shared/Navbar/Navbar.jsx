@@ -40,9 +40,8 @@ const Navbar = () => {
 
     return (
         <Slide direction='down' duration="1500">
-            <div>
-                <div>
-                    <div className="navbar bg-orange-400 text-2xl rounded-t-lg md:text-3xl ">
+            <div className='relative z-10'>
+                    <div className="navbar bg-orange-400 text-2xl  md:text-3xl ">
                         <div className="navbar-start">
                             <div className="dropdown">
                                 <label tabIndex={0} className="pt-1 btn btn-ghost lg:hidden">
@@ -111,8 +110,6 @@ const Navbar = () => {
                     </div>
 
                 </div>
-
-            </div>
         </Slide>
     );
 };

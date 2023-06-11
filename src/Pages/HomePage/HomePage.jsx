@@ -7,7 +7,7 @@ const HomePage = () => {
     return (
         <div className=''>
             <Navbar></Navbar>
-            <div  className='my-2'>
+            <div  className=''>
                 <Outlet></Outlet>
             </div>
             <div className=''>
