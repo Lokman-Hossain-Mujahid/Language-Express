@@ -19,7 +19,7 @@ const PopularClass = () => {
             <PageTItle title={"Popular Classes"}></PageTItle>
             <div className='grid md:grid-cols-2'>
                 {
-                    approvedClasses.filter(approvedClass => approvedClass.status === 'approved').map((approvedClass, index) =>
+                    approvedClasses.filter(approvedClass => approvedClass.status === 'approved').slice(0, 6).map((approvedClass, index) =>
                         <Fade key={index}>
                             <div  className=" md:flex gap-10 my-4 mx-2 items-center  font-bebas p-2 rounded-lg bg-orange-400">
                                 <div>
