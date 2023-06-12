@@ -44,6 +44,8 @@ const SingleApprovedClass = ({ approvedClass, index, added, setAdded }) => {
       return;
     }
 
+    
+
     fetch(`https://language-express-server.vercel.app/manageUserAddClass/${email}`, {
       method: 'PUT',
       headers: {
